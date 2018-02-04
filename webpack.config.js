@@ -64,7 +64,7 @@ function generateWebpack(options) {
       filename: `[name]${options.min && !options.nosuffix ? '.min' : ''}.js`,
       chunkFilename: '[chunkhash].js',
       publicPath: '', //no public path = relative
-      library: 'lineupengine',
+      library: 'LineUpJS',
       libraryTarget: 'umd',
       umdNamedDefine: false //anonymous require module
     },
@@ -87,7 +87,10 @@ function generateWebpack(options) {
       })
       //rest depends on type
     ],
-    externals: {},
+    externals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM'
+    },
     module: {
       loaders: webpackloaders.slice()
     },
@@ -102,10 +105,6 @@ function generateWebpack(options) {
         banner: banner,
         raw: true
       }));
-      base.plugins.push(new webpack.optimize.MinChunkSizePlugin({
-        minChunkSize: 10000 //at least 10.000 characters
-      }),
-      new webpack.optimize.AggressiveMergingPlugin());
   }
 
   if (!options.isTest) {
@@ -138,7 +137,7 @@ function generateWebpack(options) {
       }));
   } else {
     //generate source maps
-    base.devtool = 'cheap-module-eval-source-map';
+    base.devtool = 'source-map';
   }
   return base;
 }
