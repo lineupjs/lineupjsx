@@ -54,7 +54,8 @@ const webpackloaders = [
 function generateWebpack(options) {
   const base = {
     entry: {
-      LineUpJS: './src/index.tsx'
+      LineUpJS: './src/index.tsx',
+      builder2: './demo/builder2.tsx'
     },
     output: {
       path: resolve(__dirname, 'build'),
