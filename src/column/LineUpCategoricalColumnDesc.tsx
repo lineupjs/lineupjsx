@@ -1,14 +1,14 @@
 import {ICategoricalColumnDesc, ICategory} from 'lineupjs';
-import LineUpColumn, {ILineUpColumnProps} from './LineUpColumn';
+import LineUpColumnDesc, {ILineUpColumnDescProps} from './LineUpColumnDesc';
 
-export interface ILineUpCategoricalColumnProps extends ILineUpColumnProps {
+export interface ILineUpCategoricalColumnDescProps extends ILineUpColumnDescProps {
   asOrdinal?: boolean;
   categories?: (string | Partial<ICategory>)[];
   missingCategory?: (string | Partial<ICategory>);
   asSet?: boolean|string;
 }
 
-export default class LineUpCategoricalColumn extends LineUpColumn<ICategoricalColumnDesc, ILineUpCategoricalColumnProps> {
+export default class LineUpCategoricalColumnDesc extends LineUpColumnDesc<ICategoricalColumnDesc, ILineUpCategoricalColumnDescProps> {
   protected get type() {
     return 'categorical';
   }

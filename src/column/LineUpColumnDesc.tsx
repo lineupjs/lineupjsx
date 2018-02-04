@@ -1,7 +1,7 @@
 import {IArrayDesc, IColumnDesc} from 'lineupjs';
 import * as React from 'react';
 
-export interface ILineUpColumnProps {
+export interface ILineUpColumnDescProps {
   type?: string;
   column: string;
   label?: string;
@@ -18,7 +18,7 @@ export interface ILineUpColumnProps {
   summaryRenderer?: string;
 }
 
-export default class LineUpColumn<T extends IColumnDesc = IColumnDesc, P extends ILineUpColumnProps = ILineUpColumnProps> extends React.Component<Readonly<P>, {}> {
+export default class LineUpColumnDesc<T extends IColumnDesc = IColumnDesc, P extends ILineUpColumnDescProps = ILineUpColumnDescProps> extends React.Component<Readonly<P>, {}> {
   protected get type() {
     return this.props.type;
   }
@@ -29,7 +29,7 @@ export default class LineUpColumn<T extends IColumnDesc = IColumnDesc, P extends
     const {column} = this.props;
     const desc = {column, type: this.type, label: column[0].toUpperCase() + column.slice(1)} as any;
 
-    (['label', 'description', 'frozen', 'color', 'width', 'renderer', 'groupRenderer', 'summaryRenderer'] as (keyof ILineUpColumnProps)[]).forEach((key) => {
+    (['label', 'description', 'frozen', 'color', 'width', 'renderer', 'groupRenderer', 'summaryRenderer'] as (keyof ILineUpColumnDescProps)[]).forEach((key) => {
       if (this.props.hasOwnProperty(key)) {
         desc[key] = this.props[key];
       }

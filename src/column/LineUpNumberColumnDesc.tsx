@@ -1,8 +1,8 @@
 import {extent} from 'd3-array';
 import {EAdvancedSortMethod, ESortMethod, INumberColumnDesc} from 'lineupjs';
-import LineUpColumn, {ILineUpColumnProps} from './LineUpColumn';
+import LineUpColumnDesc, {ILineUpColumnDescProps} from './LineUpColumnDesc';
 
-export interface ILineUpNumberColumnProps extends ILineUpColumnProps {
+export interface ILineUpNumberColumnDescProps extends ILineUpColumnDescProps {
   domain?: [number, number];
   range?: [number, number];
   mapping?: 'linear'|'sqrt'|'pow1.1'|'pow2'|'pow3';
@@ -10,7 +10,7 @@ export interface ILineUpNumberColumnProps extends ILineUpColumnProps {
   sort?: EAdvancedSortMethod;
 }
 
-export default class LineUpNumberColumn extends LineUpColumn<INumberColumnDesc, ILineUpNumberColumnProps> {
+export default class LineUpNumberColumn extends LineUpColumnDesc<INumberColumnDesc, ILineUpNumberColumnDescProps> {
   protected get type() {
     return 'number';
   }
@@ -20,7 +20,7 @@ export default class LineUpNumberColumn extends LineUpColumn<INumberColumnDesc, 
 
     const domain = this.props.domain ? this.props.domain : extent(data, (d) => d[(desc as any).column] as number) as [number, number];
 
-    (['sort'] as (keyof ILineUpNumberColumnProps)[]).forEach((key) => {
+    (['sort'] as (keyof ILineUpNumberColumnDescProps)[]).forEach((key) => {
       if (this.props.hasOwnProperty(key)) {
         desc[key] = this.props[key];
       }

@@ -1,6 +1,6 @@
-export {default as LineUpCategoricalColumn, ILineUpCategoricalColumnProps} from './LineUpCategoricalColumn';
-export {default as LineUpColumn, ILineUpColumnProps} from './LineUpColumn';
-export {default as LineUpNumberColumn, ILineUpNumberColumnProps} from './LineUpNumberColumn';
-export {default as LineUpStringColumn, ILineUpStringColumnProps} from './LineUpStringColumn';
-export {default as LineUpDateColumn, ILineUpDateColumnProps} from './LineUpDateColumn';
-export {default as LineUpHierarchyColumn, ILineUpHierarchyColumnProps} from './LineUpHierarchyColumn';
+export {default as LineUpCategoricalColumnDesc, ILineUpCategoricalColumnDescProps} from './LineUpCategoricalColumnDesc';
+export {default as LineUpColumnDesc, ILineUpColumnDescProps} from './LineUpColumnDesc';
+export {default as LineUpNumberColumnDesc, ILineUpNumberColumnDescProps} from './LineUpNumberColumnDesc';
+export {default as LineUpStringColumnDesc, ILineUpStringColumnDescProps} from './LineUpStringColumnDesc';
+export {default as LineUpDateColumnDesc, ILineUpDateColumnDescProps} from './LineUpDateColumnDesc';
+export {default as LineUpHierarchyColumnDesc, ILineUpHierarchyColumnDescProps} from './LineUpHierarchyColumnDesc';

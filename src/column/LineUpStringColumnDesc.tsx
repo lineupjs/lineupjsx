@@ -1,14 +1,14 @@
 import {IStringColumnDesc} from 'lineupjs';
-import LineUpColumn, {ILineUpColumnProps} from './LineUpColumn';
+import LineUpColumnDesc, {ILineUpColumnDescProps} from './LineUpColumnDesc';
 
-export interface ILineUpStringColumnProps extends ILineUpColumnProps {
+export interface ILineUpStringColumnDescProps extends ILineUpColumnDescProps {
   editable?: boolean;
   html?: boolean;
   pattern?: string;
   patternTemplates?: string[];
 }
 
-export default class LineUpStringColumn extends LineUpColumn<IStringColumnDesc, ILineUpStringColumnProps> {
+export default class LineUpStringColumnDesc extends LineUpColumnDesc<IStringColumnDesc, ILineUpStringColumnDescProps> {
   protected get type() {
     return 'string';
   }
@@ -16,7 +16,7 @@ export default class LineUpStringColumn extends LineUpColumn<IStringColumnDesc, 
   build(data: any[]) {
     const desc: any = super.build(data);
 
-    (['pattern', 'patternTemplate'] as (keyof ILineUpStringColumnProps)[]).forEach((key) => {
+    (['pattern', 'patternTemplate'] as (keyof ILineUpStringColumnDescProps)[]).forEach((key) => {
       if (this.props.hasOwnProperty(key)) {
         desc[key] = this.props[key];
       }
