@@ -1,6 +1,7 @@
 
 export {default as LineUp, default, ILineUpProps} from './LineUp';
 export {default as Taggle} from './Taggle';
+export * from './column';
 import 'lineupjs/build/LineUpJS.css';
 
 
