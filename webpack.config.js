@@ -20,20 +20,20 @@ const banner = '/*! ' + (pkg.title || pkg.name) + ' - v' + pkg.version + ' - ' +
 
 //list of loaders and their mappings
 const webpackloaders = [
-  {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'},
+  {test: /\.s?css$/, loader: 'style-loader!css-loader!sass-loader'},
   {test: /\.tsx?$/, loader: 'awesome-typescript-loader'},
   {
     test: /\.(png|jpg)$/,
     loader: 'url-loader',
     options: {
-      limit: 10000 //inline <= 10kb
+      limit: 20000 //inline <= 10kb
     }
   },
   {
     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url-loader',
     options: {
-      limit: 10000, //inline <= 10kb
+      limit: 20000, //inline <= 10kb
       mimetype: 'application/font-woff'
     }
   },
@@ -41,7 +41,7 @@ const webpackloaders = [
     test: /\.svg(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url-loader',
     options: {
-      limit: 10000, //inline <= 10kb
+      limit: 20000, //inline <= 10kb
       mimetype: 'image/svg+xml'
     }
   },
@@ -53,7 +53,6 @@ const webpackloaders = [
  */
 function generateWebpack(options) {
   const base = {
-    target: 'node',
     entry: {
       LineUpJS: './src/index.tsx'
     },
@@ -77,7 +76,7 @@ function generateWebpack(options) {
         'process.env.NODE_ENV': JSON.stringify(options.isProduction ? 'production': 'development'),
         __VERSION__: JSON.stringify(pkg.version),
         __LICENSE__: JSON.stringify(pkg.license),
-        __BUILD_ID__: buildId,
+        __BUILD_ID__: JSON.stringify(buildId),
         __DEBUG__: options.isDev || options.isTest,
         __TEST__: options.isTest,
         __PRODUCTION__: options.isProduction,
@@ -95,6 +94,9 @@ function generateWebpack(options) {
     watchOptions: {
       aggregateTimeout: 500,
       ignored: /node_modules/
+    },
+    devServer: {
+      contentBase: 'demo'
     }
   };
 
@@ -112,10 +114,7 @@ function generateWebpack(options) {
       allChunks: true // there seems to be a bug in dynamically loaded chunk styles are not loaded, workaround: extract all styles from all chunks
     });
     base.plugins.push(p);
-    base.module.loaders[0] = {
-      test: /\.scss$/,
-      loader: p.extract(['css-loader', 'sass-loader'])
-    };
+    base.module.loaders[0].loader = p.extract(['css-loader', 'sass-loader']);
   }
   if (options.min) {
     //use a minifier
@@ -133,7 +132,7 @@ function generateWebpack(options) {
         },
         extractComments: false
       }));
-  } else {
+  } else if (options.isDev) {
     //generate source maps
     base.devtool = 'source-map';
   }
