@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Engine test</title>
+
+  <link href="./demo.css" rel="stylesheet">
+
+  <style>
+    .lineup-engine {
+      height: 90vh;
+      max-width: 100vw;
+    }
+
+  </style>
+</head>
+<body>
+<div></div>
+<script src="./demo.js"></script>
+
+<script>
+  (function () {
+    const test = new lineupengine.default(document.querySelector('div'), 'asdf');
+
+    test.run();
+  })();
+</script>
+
+</body>
+</html>

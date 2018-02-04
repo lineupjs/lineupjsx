@@ -1,0 +1,79 @@
+{
+  "name": "lineupengine",
+  "description": "a fast engine for rendering large tables consisting of rows, rows+columns, multiple rows+columns instances.",
+  "homepage": "https://sgratzl.github.io/lineupengine/",
+  "version": "1.0.0-SNAPSHOT",
+  "author": {
+    "name": "Samuel Gratzl",
+    "email": "samuel_gratzl@gmx.at"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sgratzl/lineupengine/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgratzl/lineupengine.git"
+  },
+  "main": "build/lineupengine.js",
+  "types": "build/typings/src/index.d.ts",
+  "files": [
+    "src",
+    "build/lineupengine.js",
+    "build/lineupengine.min.js",
+    "build/typings/src"
+  ],
+  "scripts": {
+    "compile": "tsc",
+    "lint": "tslint --project tsconfig.json -c tslint.json && stylelint src/**/*.scss",
+    "docs": "typedoc --out ./build/docs/ src tsd.d.ts",
+    "prebuild": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test",
+    "pretest": "npm run compile",
+    "test": "node -e \"require('fs').existsSync('./tests')?0:1\" || karma start",
+    "posttest": "npm run lint",
+    "test:watch": "karma start --autoWatch=true --singleRun=false",
+    "build:dev": "webpack",
+    "build": "webpack --env=prod",
+    "watch": "webpack --watch",
+    "release:major": "npm version major && npm publish && git push --follow-tags",
+    "release:minor": "npm version minor && npm publish && git push --follow-tags",
+    "release:patch": "npm version patch && npm publish && git push --follow-tags",
+    "predist": "npm run build && npm run docs",
+    "dist": "mkdirp dist && cd build && tar cvzf ../dist/lineupengine.tar.gz *"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.8.3",
+    "awesome-typescript-loader": "^3.4.1",
+    "css-loader": "^0.28.8",
+    "extract-loader": "^1.0.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "jasmine": "^2.8.0",
+    "jasmine-promises": "^0.4.1",
+    "json-loader": "^0.5.7",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.1",
+    "karma-junit-reporter": "^1.2.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.9",
+    "mkdirp": "^0.5.1",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0",
+    "stylelint-scss": "^2.2.0",
+    "tslint": "^5.8.0",
+    "tslint-consistent-codestyle": "^1.11.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "typedoc": "^0.9.0",
+    "typescript": "^2.6.2",
+    "uglify-es": "^3.3.4",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+  }
+}
