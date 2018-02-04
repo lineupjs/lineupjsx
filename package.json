@@ -26,20 +26,23 @@
   "scripts": {
     "compile": "tsc",
     "lint": "tslint --project tsconfig.json -c tslint.json && stylelint src/**/*.scss",
-    "docs": "typedoc --out ./build/docs/ src tsd.d.ts",
+    "docs": "typedoc --out build/docs/ src tsd.d.ts",
     "prebuild": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test",
     "pretest": "npm run compile",
     "test": "node -e \"require('fs').existsSync('./tests')?0:1\" || karma start",
     "posttest": "npm run lint",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
     "build:dev": "webpack",
-    "build": "webpack --env=prod",
+    "build": "webpack --env prod",
     "watch": "webpack --watch",
+    "preversion": "npm test && npm run build",
     "release:major": "npm version major && npm publish && git push --follow-tags",
     "release:minor": "npm version minor && npm publish && git push --follow-tags",
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
+    "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags",
+    "start": "webpack-dev-server",
     "predist": "npm run build && npm run docs",
-    "dist": "mkdirp dist && cd build && tar cvzf ../dist/lineupengine.tar.gz *"
+    "dist": "mkdirp dist && cd build && tar cvzf ../dist/lineupjs.tar.gz --exclude \"docs\" * && cd .."
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.3",
@@ -72,7 +75,8 @@
     "uglify-es": "^3.3.4",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.6.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
     "@types/react": "^16.0.36",
