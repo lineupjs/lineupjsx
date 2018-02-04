@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import LineUp, {LineUpCategoricalColumnDesc, LineUpNumberColumnDesc, LineUpStringColumnDesc} from '../src';
+import LineUp, {LineUpCategoricalColumnDesc, LineUpNumberColumnDesc, LineUpStringColumnDesc, LineUpRanking} from '../src';
 
 const arr: any[] = [];
 const cats = ['c1', 'c2', 'c3'];
@@ -19,9 +19,7 @@ function builder2() {
     <LineUpCategoricalColumnDesc column="cat" categories={cats} color="green" />
     <LineUpCategoricalColumnDesc column="cat2" categories={cats} color="blue" />
     <LineUpNumberColumnDesc column="a" domain={[0, 10]} color="blue" />
-    <LineUpRanking groupBy="cat" sortBy="a:desc">
-
-    </LineUpRanking>
+    <LineUpRanking groupBy="cat" sortBy="a:desc" columns={['*']} />
   </LineUp>;
 }
 /*
