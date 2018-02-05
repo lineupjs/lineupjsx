@@ -8,23 +8,19 @@ export interface ILineUpStringColumnDescProps extends ILineUpColumnDescProps {
   patternTemplates?: string[];
 }
 
-export default class LineUpStringColumnDesc extends LineUpColumnDesc<IStringColumnDesc, ILineUpStringColumnDescProps> {
-  protected get type() {
-    return 'string';
-  }
-
-  build(data: any[]) {
-    const desc: any = super.build(data);
+export default class LineUpStringColumnDesc extends LineUpColumnDesc<ILineUpStringColumnDescProps> {
+  static build(props: ILineUpStringColumnDescProps): IStringColumnDesc {
+    const desc: any = LineUpColumnDesc.build({...props, type: 'string'});
 
     (['pattern', 'patternTemplate'] as (keyof ILineUpStringColumnDescProps)[]).forEach((key) => {
-      if (this.props.hasOwnProperty(key)) {
-        desc[key] = this.props[key];
+      if (props.hasOwnProperty(key)) {
+        desc[key] = props[key];
       }
     });
-    if (this.props.editable) {
+    if (props.editable) {
       desc.type = 'annotate';
     }
-    if (this.props.html) {
+    if (props.html) {
       desc.escape = false;
     }
     return desc;

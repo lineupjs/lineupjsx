@@ -8,34 +8,30 @@ export interface ILineUpCategoricalColumnDescProps extends ILineUpColumnDescProp
   asSet?: boolean|string;
 }
 
-export default class LineUpCategoricalColumnDesc extends LineUpColumnDesc<ICategoricalColumnDesc, ILineUpCategoricalColumnDescProps> {
-  protected get type() {
-    return 'categorical';
-  }
+export default class LineUpCategoricalColumnDesc extends LineUpColumnDesc<ILineUpCategoricalColumnDescProps> {
+  static build(props: ILineUpCategoricalColumnDescProps, data: any[]): ICategoricalColumnDesc {
+    const desc: any = LineUpColumnDesc.build({...props, type: 'categorical'});
 
-  build(data: any[]) {
-    const desc = super.build(data);
-
-    if (this.props.asOrdinal) {
+    if (props.asOrdinal) {
       desc.type = 'ordinal';
     }
-    if (this.props.missingCategory) {
-      desc.missingCategory = this.props.missingCategory;
+    if (props.missingCategory) {
+      desc.missingCategory = props.missingCategory;
     }
-    if (this.props.asSet) {
-      if (typeof this.props.asSet === 'string') {
-        (desc as any).separator = this.props.asSet;
+    if (props.asSet) {
+      if (typeof props.asSet === 'string') {
+        (desc as any).separator = props.asSet;
       }
       desc.type = 'set';
     }
 
 
-    if (!this.props.categories) {
+    if (!props.categories) {
       // derive categories
       const categories = new Set(data.map((d) => d[(desc as any).column] as string));
       desc.categories = Array.from(categories).sort();
     } else {
-      desc.categories = this.props.categories;
+      desc.categories = props.categories;
     }
     return desc;
   }

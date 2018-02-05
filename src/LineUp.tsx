@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {LocalDataProvider, ITaggleOptions, LineUp as LineUpImpl, Taggle, Column, ICellRendererFactory, IToolbarAction, Ranking, IDynamicHeight, IGroupItem, IGroupData, deriveColors, deriveColumnDescriptions} from 'lineupjs';
-// import * as equal from 'fast-deep-equal';
-import {filterChildren, pick} from './utils';
+import * as equal from 'fast-deep-equal';
+import {filterChildren, pick, isSame, filterChildrenProps} from './utils';
 import LineUpColumnDesc from './column/LineUpColumnDesc';
 import LineUpRanking from './LineUpRanking';
 
@@ -66,19 +66,28 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
   }
 
   componentDidMount() {
-    const columns = this.buildColumns(this.props.data);
-    this.data = new LocalDataProvider(this.props.data, columns, pick(this.props, providerOptions));
-
-    this.buildRankings();
-
-    this.data.setSelection(this.props.selection || []);
-    this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, this.onSelectionChanged);
-
+    this.data = this.buildProvider();
     this.instance = this.createInstance(this.node, this.data, pick(this.props, lineupOptions));
   }
 
+  private buildProvider() {
+    const columns = this.buildColumns(this.props.data);
+    const data = new LocalDataProvider(this.props.data, columns, pick(this.props, providerOptions));
+
+    this.buildRankings(data);
+
+    data.setSelection(this.props.selection || []);
+    data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, this.onSelectionChanged);
+
+    return data;
+  }
+
+  private resolveColumnDescs(data: any[]) {
+    return filterChildrenProps<LineUpColumnDesc, any>(this.props.children, LineUpColumnDesc).map((d) => d.type.build(d.props, data));
+  }
+
   private buildColumns(data: any[]) {
-    const columns = filterChildren<LineUpColumnDesc>(this.props.children, LineUpColumnDesc).map((d) => d.build(data));
+    const columns = this.resolveColumnDescs(data);
     if (columns.length === 0 || this.props.deriveColumns) {
       columns.push(...deriveColumnDescriptions(data, {columns: Array.isArray(this.props.deriveColumns) ? this.props.deriveColumns: []}));
     }
@@ -88,33 +97,75 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     return columns;
   }
 
-  private buildRankings() {
-    if (!this.data) {
+  private buildRankings(data: LocalDataProvider) {
+    if (!data) {
       return;
     }
     const builders = filterChildren<LineUpRanking>(this.props.children, LineUpRanking);
     if ((builders.length === 0 && !this.props.restore) || this.props.defaultRanking) {
-      this.data.deriveDefault(this.props.defaultRanking !== 'noSupportTypes');
+      data.deriveDefault(this.props.defaultRanking !== 'noSupportTypes');
     }
     if (this.props.restore) {
-      this.data.restore(this.props.restore);
+      data.restore(this.props.restore);
     }
-    builders.forEach((b) => b.build(this.data!));
+    builders.forEach((b) => b.build(data!));
   }
 
-  componentDidUpdate(_prevProps: Readonly<ILineUpProps>) {
-    // TODO
-    if (!this.data) {
+  private updateLineUp(prevProps: Readonly<ILineUpProps>) {
+    // check lineup instance properties
+    const changedLineUpOptions = isSame(this.props, prevProps, lineupOptions);
+    if (!changedLineUpOptions) {
+      return;
+    }
+    // recreate lineup
+    if (this.instance) {
+      this.instance.destroy();
+    }
+    console.log('recreating lineup instance');
+    this.instance = this.createInstance(this.node, this.data!, changedLineUpOptions);
+  }
+
+  private updateProvider(prevProps: Readonly<ILineUpProps>) {
+    const changedProviderOptions = isSame(this.props, prevProps, providerOptions);
+    if (changedProviderOptions || !this.data) {
+      // big change start from scratch
+      this.data = this.buildProvider();
       return;
     }
 
-    // const changedProviderOptions = isSame(this.props, prevProps, providerOptions);
-    // const changedLineUpOptions = isSame(this.props, prevProps, lineupOptions);
+    const dataChanged = prevProps.data !== this.props.data && !equal(this.props.data, prevProps.data);
+    // TODO check column descriptions
+    {
+      const columns = this.resolveColumnDescs(this.props.data);
+      if (dataChanged && (columns.length === 0 || this.props.deriveColumns)) {
+        // new derived columns
+      }
+    }
 
+    if (dataChanged) {
+      this.data.setData(this.props.data);
+    }
+
+    // TODO check ranking definitions
+    {
+      const builders = filterChildren<LineUpRanking>(this.props.children, LineUpRanking);
+      if ((builders.length === 0 && !this.props.restore) || this.props.defaultRanking) {
+        this.data.deriveDefault(this.props.defaultRanking !== 'noSupportTypes');
+      }
+      if (this.props.restore) {
+        this.data.restore(this.props.restore);
+      }
+      builders.forEach((b) => b.build(this.data!));
+    }
 
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, null);
     this.data.setSelection(this.props.selection || []);
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, this.onSelectionChanged);
+  }
+
+  componentDidUpdate(prevProps: Readonly<ILineUpProps>) {
+    this.updateProvider(prevProps);
+    this.updateLineUp(prevProps);
   }
 
 

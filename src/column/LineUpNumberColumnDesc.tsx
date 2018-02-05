@@ -10,33 +10,29 @@ export interface ILineUpNumberColumnDescProps extends ILineUpColumnDescProps {
   sort?: EAdvancedSortMethod;
 }
 
-export default class LineUpNumberColumn extends LineUpColumnDesc<INumberColumnDesc, ILineUpNumberColumnDescProps> {
-  protected get type() {
-    return 'number';
-  }
+export default class LineUpNumberColumn extends LineUpColumnDesc<ILineUpNumberColumnDescProps> {
+  static build(props: ILineUpNumberColumnDescProps, data: any[]): INumberColumnDesc {
+    const desc: any = LineUpColumnDesc.build({...props, type: 'number'});
 
-  build(data: any[]) {
-    const desc: any = super.build(data);
-
-    const domain = this.props.domain ? this.props.domain : extent(data, (d) => d[(desc as any).column] as number) as [number, number];
+    const domain = props.domain ? props.domain : extent(data, (d) => d[(desc as any).column] as number) as [number, number];
 
     (['sort'] as (keyof ILineUpNumberColumnDescProps)[]).forEach((key) => {
-      if (this.props.hasOwnProperty(key)) {
-        desc[key] = this.props[key];
+      if (props.hasOwnProperty(key)) {
+        desc[key] = props[key];
       }
     });
-    if (this.props.scripted) {
-      desc.map = {domain, code: this.props.scripted, type: 'script'};
-    } else if (!this.props.mapping || this.props.mapping === 'linear') {
+    if (props.scripted) {
+      desc.map = {domain, code: props.scripted, type: 'script'};
+    } else if (!props.mapping || props.mapping === 'linear') {
       desc.domain = domain;
-      if (this.props.range) {
-        desc.range = this.props.range;
+      if (props.range) {
+        desc.range = props.range;
       }
     } else {
       desc.map = {
-        type: this.props.mapping,
+        type: props.mapping,
         domain,
-        range: this.props.range || [0, 1]
+        range: props.range || [0, 1]
       };
     }
     return desc;

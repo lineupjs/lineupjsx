@@ -43,13 +43,9 @@ export abstract class ALineUpColumnBuilder<T> extends React.PureComponent<Readon
   abstract build(): string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder;
 }
 
-export class LineUpColumn extends ALineUpColumnBuilder<{column: string, weight?: number}> {
+export class LineUpColumn extends ALineUpColumnBuilder<{column: '*'|string}> {
   build() {
     return this.props.column;
-  }
-
-  get weight() {
-    return this.props.weight;
   }
 }
 
@@ -74,13 +70,23 @@ export class LineUpNestedColumn extends ALineUpColumnBuilder<{label?: string}> {
   }
 }
 
+export class LineUpWeightedColumn extends ALineUpColumnBuilder<{column: string, weight: number}> {
+  build() {
+    return this.props.column;
+  }
+
+  get weight() {
+    return this.props.weight;
+  }
+}
+
 export class LineUpWeightedSumColumn extends ALineUpColumnBuilder<{label?: string}> {
   build() {
-    const children = filterChildren<LineUpColumn>(this.props.children, LineUpColumn);
+    const children = filterChildren<LineUpWeightedColumn>(this.props.children, LineUpWeightedColumn);
     const r: IWeightedSumBuilder = {
       type: 'weightedSum',
       columns: children.map((d) => d.build()),
-      weights: children.map((d) => d.weight || 0)
+      weights: children.map((d) => d.weight)
     };
     if (this.props.label) {
       r.label = this.props.label;

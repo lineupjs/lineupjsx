@@ -6,17 +6,13 @@ export interface ILineUpHierarchyColumnDescProps extends ILineUpColumnDescProps 
   hierarchySeparator?: string;
 }
 
-export default class LineUpHierarchyColumnDesc extends LineUpColumnDesc<IHierarchyColumnDesc, ILineUpHierarchyColumnDescProps> {
-  protected get type() {
-    return 'hierarchy';
-  }
-
-  build(data: any[]) {
-    const desc: any = super.build(data);
+export default class LineUpHierarchyColumnDesc extends LineUpColumnDesc<ILineUpHierarchyColumnDescProps> {
+  static build(props: Partial<ILineUpHierarchyColumnDescProps>): IHierarchyColumnDesc {
+    const desc: any = LineUpColumnDesc.build({...props as any, type: 'hierarchy'});
 
     (['hierarchy', 'hierarchySeparator'] as (keyof ILineUpHierarchyColumnDescProps)[]).forEach((key) => {
-      if (this.props.hasOwnProperty(key)) {
-        desc[key] = this.props[key];
+      if (props.hasOwnProperty(key)) {
+        desc[key] = props[key];
       }
     });
     return desc;

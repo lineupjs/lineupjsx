@@ -10,10 +10,24 @@ export function isTypeInstance(clazz: any, superClass: any) {
   return c === superClass;
 }
 
-export function filterChildren<T>(children: React.ReactNode, clazz: any): T[] {
-  return React.Children.toArray(children).filter((d: any) => typeof d !== 'string' && isTypeInstance(d.type, clazz)).map((d: any) => {
-    return <T>(new d.type(d.props, null));
+export class ChildWrapper<T, P> {
+  constructor(public readonly props: P, public readonly type: any) {
+
+  }
+
+  create() {
+    return <T>(new this.type(this.props, null));
+  }
+}
+
+export function filterChildrenProps<T, P>(children: React.ReactNode, clazz: any): ChildWrapper<T, P>[] {
+  return React.Children.toArray(children).filter((d: any) => React.isValidElement(d) && isTypeInstance(d.type, clazz)).map((d: any) => {
+    return new ChildWrapper<T, P>(d.props, d.type);
   });
+}
+
+export function filterChildren<T>(children: React.ReactNode, clazz: any): T[] {
+  return filterChildrenProps<T, any>(children, clazz).map((d) => d.create());
 }
 
 export function pick<T>(obj: T, keys: (keyof T)[]): Pick<T, keyof T> {

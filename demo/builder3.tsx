@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import LineUp from '../src';
+import LineUp, {LineUpRanking, LineUpSupportColumn, LineUpColumn} from '../src';
 
 const arr: any[] = [];
 const cats = ['c1', 'c2', 'c3'];
@@ -28,7 +28,12 @@ class Builder3 extends React.Component<{}, IBuilder3State> {
 
   render() {
     return <React.Fragment>
-        <LineUp data={arr} sidePanel sidePanelCollapsed selection={this.state.selection} onSelectionChanged={(s) => this.setState({ selection: s})}></LineUp>
+        <LineUp data={arr} sidePanel sidePanelCollapsed selection={this.state.selection} onSelectionChanged={(s) => this.setState({ selection: s})}>
+        <LineUpRanking groupBy="cat" sortBy="a:desc">
+          <LineUpSupportColumn type="*" />
+          <LineUpColumn column="*" />
+        </LineUpRanking>
+        </LineUp>
         <div>
           {this.state.selection.map((d) => <div key={d}>{d}</div>)}
         </div>

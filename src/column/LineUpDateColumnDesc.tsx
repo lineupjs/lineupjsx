@@ -6,17 +6,13 @@ export interface ILineUpDateColumnDescProps extends ILineUpColumnDescProps {
   dateParse?: string;
 }
 
-export default class LineUpDateColumnDesc extends LineUpColumnDesc<IDateColumnDesc, ILineUpDateColumnDescProps> {
-  protected get type() {
-    return 'date';
-  }
-
-  build(data: any[]) {
-    const desc: any = super.build(data);
+export default class LineUpDateColumnDesc extends LineUpColumnDesc<ILineUpDateColumnDescProps> {
+  static build(props: ILineUpDateColumnDescProps): IDateColumnDesc {
+    const desc: any = LineUpColumnDesc.build({...props, type: 'date'});
 
     (['dateFormat', 'dateParse'] as (keyof ILineUpDateColumnDescProps)[]).forEach((key) => {
-      if (this.props.hasOwnProperty(key)) {
-        desc[key] = this.props[key];
+      if (props.hasOwnProperty(key)) {
+        desc[key] = props[key];
       }
     });
     return desc;
