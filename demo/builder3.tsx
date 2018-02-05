@@ -15,6 +15,8 @@ for (let i = 0; i < 100; ++i) {
 
 interface IBuilder3State {
   selection: number[];
+  sidePanelCollapsed: boolean;
+  arr: any[];
 }
 
 class Builder3 extends React.Component<{}, IBuilder3State> {
@@ -22,19 +24,23 @@ class Builder3 extends React.Component<{}, IBuilder3State> {
     super(props, context);
 
     this.state =  {
-      selection: []
+      selection: [],
+      sidePanelCollapsed: true,
+      arr
     };
   }
 
   render() {
     return <React.Fragment>
-        <LineUp data={arr} sidePanel sidePanelCollapsed selection={this.state.selection} onSelectionChanged={(s) => this.setState({ selection: s})}>
+        <LineUp data={arr} sidePanel sidePanelCollapsed={this.state.sidePanelCollapsed} selection={this.state.selection} onSelectionChanged={(s) => this.setState({ selection: s})}>
         <LineUpRanking groupBy="cat" sortBy="a:desc">
           <LineUpSupportColumn type="*" />
           <LineUpColumn column="*" />
         </LineUpRanking>
         </LineUp>
         <div>
+          <button onClick={() => this.setState({sidePanelCollapsed: !this.state.sidePanelCollapsed})}>Panel</button>
+          <button onClick={() => this.setState({arr: this.state.arr.slice(10)})}>Data</button>
           {this.state.selection.map((d) => <div key={d}>{d}</div>)}
         </div>
       </React.Fragment>;
