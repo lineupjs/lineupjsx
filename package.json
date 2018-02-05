@@ -85,7 +85,7 @@
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
     "fast-deep-equal": "^1.0.0",
-    "lineupjs": "github:sgratzl/lineupjs#develop",
+    "lineupjs": "^3.0.0-beta.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
