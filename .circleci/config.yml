@@ -4,8 +4,6 @@ jobs:
     working_directory: ~/phovea
     docker:
       - image: circleci/node:6-browsers
-    tags:
-      - /v.*/
     steps:
       - checkout
       - restore_cache:
@@ -33,15 +31,17 @@ jobs:
           name: update api
           command: |
             if [ "${CIRCLE_BRANCH}" == "develop" ] || [ "${CIRCLE_BRANCH}" == "master" ] ; then
-                git clone git@github.com:sgratzl/lineupengine_docs.git
-                cd lineupengine_docs
-                rm -rf "${CIRCLE_BRANCH}/"
+                git clone git@github.com:sgratzl/lineupjs_docs.git
+                cd lineupjs_docs
+                rm -rf "${CIRCLE_BRANCH}x/"
                 rm README.md
                 cp ../README.md README.md
-                mv ../build "${CIRCLE_BRANCH}"
+                mv ../build "${CIRCLE_BRANCH}x"
+                cp ../demo/* "${CIRCLE_BRANCH}x/"
                 git config user.email "samuel_gratzl@gmx.at"
                 git config user.name "Samuel Gratzl"
                 git add -A
-                git commit -m "auto updating ${CIRCLE_BRANCH}" -m "trigger: ${CIRCLE_BUILD_URL}"
+                git commit -m "auto updating ${CIRCLE_BRANCH}x" -m "trigger: ${CIRCLE_BUILD_URL}"
                 git push origin master
             fi
+
