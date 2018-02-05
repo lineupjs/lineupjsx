@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {LocalDataProvider, ITaggleOptions, LineUp as LineUpImpl, Taggle, Column, ICellRendererFactory, IToolbarAction, Ranking, IDynamicHeight, IGroupItem, IGroupData, deriveColors, deriveColumnDescriptions} from 'lineupjs';
-import * as equal from 'fast-deep-equal';
-import {isSame, filterChildren} from './utils';
+// import * as equal from 'fast-deep-equal';
+import {filterChildren, pick} from './utils';
 import LineUpColumnDesc from './column/LineUpColumnDesc';
-import LineUpRanking from 'lineup_react/src/LineUpRanking';
+import LineUpRanking from './LineUpRanking';
 
 export interface ILineUpDataProps {
   data: any[];
@@ -61,20 +61,20 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     }
   }
 
-  protected createInstance(node: HTMLElement, data: LocalDataProvider, options: ITaggleOptions): LineUpImpl|Taggle {
+  protected createInstance(node: HTMLElement, data: LocalDataProvider, options: Partial<ITaggleOptions>): LineUpImpl|Taggle {
     return new LineUpImpl(node, data, options);
   }
 
   componentDidMount() {
     const columns = this.buildColumns(this.props.data);
-    this.data = new LocalDataProvider(this.props.data, columns, pick(this.props, ...providerOptions));
+    this.data = new LocalDataProvider(this.props.data, columns, pick(this.props, providerOptions));
 
     this.buildRankings();
 
     this.data.setSelection(this.props.selection || []);
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, this.onSelectionChanged);
 
-    this.instance = this.createInstance(this.node, this.data, pick(this.props, ...lineupOptions));
+    this.instance = this.createInstance(this.node, this.data, pick(this.props, lineupOptions));
   }
 
   private buildColumns(data: any[]) {
@@ -102,14 +102,14 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     builders.forEach((b) => b.build(this.data!));
   }
 
-  componentDidUpdate(prevProps: Readonly<ILineUpProps>) {
+  componentDidUpdate(_prevProps: Readonly<ILineUpProps>) {
     // TODO
     if (!this.data) {
       return;
     }
 
-    const changedProviderOptions = isSame(this.props, prevProps, providerOptions);
-    const changedLineUpOptions = isSame(this.props, prevProps, lineupOptions);
+    // const changedProviderOptions = isSame(this.props, prevProps, providerOptions);
+    // const changedLineUpOptions = isSame(this.props, prevProps, lineupOptions);
 
 
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, null);

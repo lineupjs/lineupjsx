@@ -1,5 +1,5 @@
 import {extent} from 'd3-array';
-import {EAdvancedSortMethod, ESortMethod, INumberColumnDesc} from 'lineupjs';
+import {EAdvancedSortMethod, INumberColumnDesc} from 'lineupjs';
 import LineUpColumnDesc, {ILineUpColumnDescProps} from './LineUpColumnDesc';
 
 export interface ILineUpNumberColumnDescProps extends ILineUpColumnDescProps {

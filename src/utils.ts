@@ -16,9 +16,15 @@ export function filterChildren<T>(children: React.ReactNode, clazz: any): T[] {
   });
 }
 
+export function pick<T>(obj: T, keys: (keyof T)[]): Pick<T, keyof T> {
+  const r: Pick<T, keyof T> = <any>{};
+  keys.forEach((k) => r[k] = obj[k]);
+  return r;
+}
+
 export function isSame<T>(current: T, prev: T, props: (keyof T)[]) {
   if(props.every((p) => equal(current[p], prev[p]))) {
     return null;
   }
-  return pick(current, ...props);
+  return pick(current, props);
 }

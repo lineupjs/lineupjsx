@@ -41,7 +41,7 @@ export default class LineUpColumnDesc<T extends IColumnDesc = IColumnDesc, P ext
     }
 
     if (this.props.asArray != null) {
-      console.assert(['boolean', 'categorical', 'date', 'number', 'string'].includes(this.desc.type!));
+      console.assert(['boolean', 'categorical', 'date', 'number', 'string'].includes(desc.type!));
       desc.type += 's';
       const a = desc as IArrayDesc;
       const labels = this.props.asArray;
