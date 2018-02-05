@@ -5,6 +5,7 @@ export * from './column';
 export * from './LineUpRanking';
 export {default as LineUpRanking} from './LineUpRanking';
 import 'lineupjs/build/LineUpJS.css';
+import './style.scss';
 
 
 declare const __VERSION__: string;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import LineUp, {LineUpCategoricalColumnDesc, LineUpNumberColumnDesc, LineUpStringColumnDesc, LineUpRanking} from '../src';
+import LineUp, {LineUpCategoricalColumnDesc, LineUpNumberColumnDesc, LineUpStringColumnDesc, LineUpRanking, LineUpColumn, LineUpSupportColumn} from '../src';
 
 const arr: any[] = [];
 const cats = ['c1', 'c2', 'c3'];
@@ -19,26 +19,12 @@ function builder2() {
     <LineUpCategoricalColumnDesc column="cat" categories={cats} color="green" />
     <LineUpCategoricalColumnDesc column="cat2" categories={cats} color="blue" />
     <LineUpNumberColumnDesc column="a" domain={[0, 10]} color="blue" />
-    <LineUpRanking groupBy="cat" sortBy="a:desc" columns={['*']} />
+    <LineUpRanking groupBy="cat" sortBy="a:desc">
+      <LineUpSupportColumn type="*" />
+      <LineUpColumn column="*" />
+    </LineUpRanking>
   </LineUp>;
 }
-/*
-const builder = LineUpJS.builder(arr);
-
-// and two rankings
-const ranking = LineUpJS.buildRanking()
-  .supportTypes()
-  .allColumns() // add all columns
-  .groupBy('cat')
-  .sortBy('a', 'desc')
-  .impose('number', 'a', 'cat2'); // create composite column
-
-builder
-  .defaultRanking()
-  .ranking(ranking);
-
-const lineup = builder.build(document.body);
-*/
 
 ReactDOM.render(
   React.createElement(builder2),

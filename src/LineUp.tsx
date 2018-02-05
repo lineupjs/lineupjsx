@@ -128,6 +128,8 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
   }
 
   render() {
-    return <div ref={(d) => this.node = d as HTMLElement} className="lu-wrapper"/>;
+    return <div className="lu-wrapper">
+      <div ref={(d) => this.node = d as HTMLElement}/>
+    </div>;
   }
 }
