@@ -1,7 +1,7 @@
 {
-  "name": "lineupengine",
+  "name": "lineupjsx",
   "description": "a fast engine for rendering large tables consisting of rows, rows+columns, multiple rows+columns instances.",
-  "homepage": "https://sgratzl.github.io/lineupengine/",
+  "homepage": "https://sgratzl.github.io/lineupjsx/",
   "version": "1.0.0-SNAPSHOT",
   "author": {
     "name": "Samuel Gratzl",
@@ -9,19 +9,22 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sgratzl/lineupengine/issues"
+    "url": "https://github.com/sgratzl/lineupjsx/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sgratzl/lineupengine.git"
+    "url": "https://github.com/sgratzl/lineupjsx.git"
   },
-  "main": "build/lineupengine.js",
-  "types": "build/typings/src/index.d.ts",
+  "main": "build/LineUpJSx.js",
+  "types": "build/typings/index.d.ts",
   "files": [
-    "src",
-    "build/lineupengine.js",
-    "build/lineupengine.min.js",
-    "build/typings/src"
+    "build",
+    "!build/docs",
+    "!build/demo",
+    "src/**/*.ts",
+    "src/assets/**/",
+    "src/**/*.tsx",
+    "src/**/*.scss"
   ],
   "scripts": {
     "compile": "tsc",
@@ -42,7 +45,7 @@
     "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags",
     "start": "webpack-dev-server",
     "predist": "npm run build && npm run docs",
-    "dist": "mkdirp dist && cd build && tar cvzf ../dist/lineupjs.tar.gz --exclude \"docs\" * && cd .."
+    "dist": "mkdirp dist && cd build && tar cvzf ../dist/lineupjsx.tar.gz --exclude \"docs\" * && cd .."
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.3",

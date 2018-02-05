@@ -1,40 +1,81 @@
-LineUpEngine
-============
+LineUp.js React Wrapper (LineUp.jsx)
+====================================
+
 [![License: MIT][mit-image]][mit-url] [![NPM version][npm-image]][npm-url]  [![CircleCI][ci-image]][ci-url] 
 
-a fast engine for rendering large tables consisting of rows, rows+columns, multiple rows+columns instances. 
-
-Supported Browsers
-------------------
-
- * latest Chrome (best performance)
- * Firefox Quantum
- * Edge 16
-
-Installation
-------------
-
-Develop Version:
-
-```html
-<script src="https://sgratzl.github.io/lineupengine_docs/develop/lineupengine.min.js"></script>
-```
+LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. 
+This is a [React](https://reactjs.org/) wrapper around the JavaScript library [LineUp.js](https://github.com/sgratzl/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org). 
 
 Usage
 -----
 
-**TODO**
+**Installation**
+
+```bash
+npm install --save lineupjsx
+```
+
+```html
+<link href="https://sgratzl.github.io/lineupjs_docs/masterx/LineUpJSx.css" rel="stylesheet">
+<script src="https://sgratzl.github.io/lineupjs_docs/masterx/LineUpJSx.min.js"></script>
+```
+
+**Minimal Usage Example**
+
+```javascript
+// generate some data
+const arr = [];
+const cats = ['c1', 'c2', 'c3'];
+for (let i = 0; i < 100; ++i) {
+  arr.push({
+    a: Math.random() * 10,
+    d: 'Row ' + i,
+    cat: cats[Math.floor(Math.random() * 3)],
+    cat2: cats[Math.floor(Math.random() * 3)]
+  })
+}
+```
+```jsx
+<LineUp data={arr}/>
+```
+
+TODO: 
+[CodePen]()
+
+![Minimal Result](https://user-images.githubusercontent.com/4129778/34654173-32180ff8-f3f8-11e7-8469-229fa34a65dc.png)
 
 
-API Documentation
------------------
+**Advanced Usage Example**
 
-see [Develop API documentation](https://sgratzl.github.io/lineupengine_docs/develop/docs)
+```jsx
+// arr from before
+<LineUp data={arr} defaultRanking>
+  <LineUpStringColumnDesc column="d" label="Label" width={100} />
+  <LineUpCategoricalColumnDesc column="cat" categories={cats} color="green" />
+  <LineUpCategoricalColumnDesc column="cat2" categories={cats} color="blue" />
+  <LineUpNumberColumnDesc column="a" domain={[0, 10]} color="blue" />
 
-Demos
------
+  <LineUpRanking groupBy="cat" sortBy="a:desc">
+    <LineUpSupportColumn type="*" />
+    <LineUpColumn column="*" />
+    <LineUpImposeColumn label="a+cat" column="a" categeoricalColumn="cat2" />
+  </LineUpRanking>
+</LineUp>;
+```
 
-see [Develop Demo](https://sgratzl.github.io/lineupengine/develop_docs/demo)
+TODO
+[CodePen]()
+
+![Advanced Result](https://user-images.githubusercontent.com/4129778/34654174-3235f784-f3f8-11e7-9361-44f5fa068bb9.png)
+
+
+Supported Browsers
+------------------
+
+ * Chrome 64+ (best performance)
+ * Firefox 57+
+ * Edge 16+
+ 
 
 
 Development Environment
@@ -43,8 +84,8 @@ Development Environment
 **Installation**
 
 ```bash
-git clone https://github.com/sgratzl/lineupengine.git
-cd lineupengine
+git clone https://github.com/sgratzl/lineupjsx.git
+cd lineupjsx
 npm install
 ```
 
@@ -61,28 +102,25 @@ npm run lint
 ```
 
 
-**Watch file changes**
+**Serve integrated webserver**
 
 ```bash
-npm run watch
+npm start
 ```
 
-Notes
------
 
-```
-firefox max DOM height: 17.800.000px < 17899999px
-edge max DOM height: 10000000px < 1099999px
+Authors
+-------
 
-scrollHeight
-chrome:  33.554.431px translate + height
-firefox: 17.895.566px marginTop + height
-edge:    3.033.917px height
-```
+ * Samuel Gratzl (@sgratzl)
 
-[npm-image]: https://badge.fury.io/js/lineupengine.svg
-[npm-url]: https://npmjs.org/package/lineupengine
+[npm-image]: https://badge.fury.io/js/lineupjsx.svg
+[npm-url]: https://npmjs.org/package/lineupjsx
 [mit-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [mit-url]: https://opensource.org/licenses/MIT
-[ci-image]: https://circleci.com/gh/sgratzl/lineupengine.svg?style=shield
-[ci-url]: https://circleci.com/gh/sgratzl/lineupengine
+[ci-image]: https://circleci.com/gh/sgratzl/lineupjsx.svg?style=shield
+[ci-url]: https://circleci.com/gh/sgratzl/lineupjsx
+
+
+ 
+
