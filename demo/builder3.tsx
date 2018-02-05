@@ -17,23 +17,25 @@ interface IBuilder3State {
   selection: number[];
   sidePanelCollapsed: boolean;
   arr: any[];
+  groupBy: string;
 }
 
-class Builder3 extends React.Component<{}, IBuilder3State> {
+class Builder3 extends React.PureComponent<{}, IBuilder3State> {
   constructor(props: {}, context: any) {
     super(props, context);
 
     this.state =  {
       selection: [],
       sidePanelCollapsed: true,
-      arr
+      arr,
+      groupBy: 'cat'
     };
   }
 
   render() {
     return <React.Fragment>
-        <LineUp data={arr} sidePanel sidePanelCollapsed={this.state.sidePanelCollapsed} selection={this.state.selection} onSelectionChanged={(s) => this.setState({ selection: s})}>
-        <LineUpRanking groupBy="cat" sortBy="a:desc">
+        <LineUp data={this.state.arr} sidePanel sidePanelCollapsed={this.state.sidePanelCollapsed} selection={this.state.selection} onSelectionChanged={(s) => this.setState({ selection: s})}>
+        <LineUpRanking groupBy={this.state.groupBy} sortBy="a:desc">
           <LineUpSupportColumn type="*" />
           <LineUpColumn column="*" />
         </LineUpRanking>
@@ -41,6 +43,7 @@ class Builder3 extends React.Component<{}, IBuilder3State> {
         <div>
           <button onClick={() => this.setState({sidePanelCollapsed: !this.state.sidePanelCollapsed})}>Panel</button>
           <button onClick={() => this.setState({arr: this.state.arr.slice(10)})}>Data</button>
+          <button onClick={() => this.setState({groupBy: this.state.groupBy === 'cat' ? 'cat2' : 'cat'})}>Group</button>
           {this.state.selection.map((d) => <div key={d}>{d}</div>)}
         </div>
       </React.Fragment>;

@@ -150,10 +150,13 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     return data;
   }
 
-  private updateLineUp(prevProps: Readonly<ILineUpProps>) {
+  private updateLineUp(prevProps: Readonly<ILineUpProps>, providerChanged: boolean) {
     // check lineup instance properties
     const changedLineUpOptions = isSame(this.props, prevProps, lineupOptions);
     if (!changedLineUpOptions) {
+      if (providerChanged) {
+        this.instance!.setDataProvider(this.data!);
+      }
       return;
     }
     // recreate lineup
@@ -169,7 +172,7 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     if (changedProviderOptions || !this.data || !equal(this.props.data, prevProps.data)) {
       // big change start from scratch
       this.data = this.buildProvider();
-      return;
+      return true;
     }
 
     const rankings = this.resolveRankings();
@@ -188,11 +191,12 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, null);
     this.data.setSelection(this.props.selection || []);
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, this.onSelectionChanged);
+    return false;
   }
 
   componentDidUpdate(prevProps: Readonly<ILineUpProps>) {
-    this.updateProvider(prevProps);
-    this.updateLineUp(prevProps);
+    const providerChanged = this.updateProvider(prevProps);
+    this.updateLineUp(prevProps, providerChanged);
 
     this.instance!.update();
   }
