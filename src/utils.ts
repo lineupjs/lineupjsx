@@ -20,7 +20,7 @@ export class ChildWrapper<T, P> {
   }
 }
 
-export function filterChildrenProps<T, P>(children: React.ReactNode, clazz: any): ChildWrapper<T, P>[] {
+export function filterChildrenProps<T, P = any>(children: React.ReactNode, clazz: any): ChildWrapper<T, P>[] {
   return React.Children.toArray(children).filter((d: any) => React.isValidElement(d) && isTypeInstance(d.type, clazz)).map((d: any) => {
     return new ChildWrapper<T, P>(d.props, d.type);
   });

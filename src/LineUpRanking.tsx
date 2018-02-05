@@ -1,6 +1,6 @@
 import {LocalDataProvider, Ranking, buildRanking, IImposeColumnBuilder, INestedBuilder, IWeightedSumBuilder, IReduceBuilder, IScriptedBuilder} from 'lineupjs';
 import * as React from 'react';
-import {filterChildren} from './utils';
+import {filterChildren, filterChildrenProps} from './utils';
 
 export interface ILineUpRankingProps {
   sortBy?: (string|{column: string, asc: 'asc'|'desc'|boolean})|((string|{column: string, asc: 'asc'|'desc'|boolean})[]);
@@ -40,20 +40,26 @@ export default class LineUpRanking extends React.PureComponent<Readonly<ILineUpR
 }
 
 export abstract class ALineUpColumnBuilder<T> extends React.PureComponent<Readonly<T>, {}> {
-  abstract build(): string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder;
+
 }
 
 export class LineUpColumn extends ALineUpColumnBuilder<{column: '*'|string}> {
-  build() {
-    return this.props.column;
+  static build(props: {column: '*'|string}) {
+    return props.column;
   }
 }
 
-export class LineUpImposeColumn extends ALineUpColumnBuilder<{label?: string, column: string, categoricalColumn: string}> {
-  build() {
+export interface ILineUpImposeColumnProps {
+  label?: string;
+  column: string;
+  categoricalColumn: string;
+}
+
+export class LineUpImposeColumn extends ALineUpColumnBuilder<ILineUpImposeColumnProps> {
+  static build(props: ILineUpImposeColumnProps) {
     return Object.assign({
       type: 'impose'
-    }, this.props) as any;
+    }, props) as any;
   }
 }
 
@@ -61,7 +67,7 @@ export class LineUpNestedColumn extends ALineUpColumnBuilder<{label?: string}> {
   build() {
     const r: INestedBuilder = {
       type: 'nested',
-      columns: filterChildren<LineUpColumn>(this.props.children, LineUpColumn).map((d) => d.build())
+      columns: filterChildrenProps<LineUpColumn>(this.props.children, LineUpColumn).map((d) => d.type.build(d.props))
     };
     if (this.props.label) {
       r.label = this.props.label;
@@ -80,56 +86,77 @@ export class LineUpWeightedColumn extends ALineUpColumnBuilder<{column: string, 
   }
 }
 
-export class LineUpWeightedSumColumn extends ALineUpColumnBuilder<{label?: string}> {
-  build() {
-    const children = filterChildren<LineUpWeightedColumn>(this.props.children, LineUpWeightedColumn);
+export interface ILineUpWeightedSumColumnProps {
+  label?: string;
+  children: React.ReactNode;
+}
+
+export class LineUpWeightedSumColumn extends ALineUpColumnBuilder<ILineUpWeightedSumColumnProps> {
+  static build(props: ILineUpWeightedSumColumnProps) {
+    const children = filterChildrenProps<LineUpWeightedColumn>(props.children, LineUpWeightedColumn);
     const r: IWeightedSumBuilder = {
       type: 'weightedSum',
-      columns: children.map((d) => d.build()),
-      weights: children.map((d) => d.weight)
+      columns: children.map((d) => d.type.build(d.props)),
+      weights: children.map((d) => d.props.weight)
     };
-    if (this.props.label) {
-      r.label = this.props.label;
+    if (props.label) {
+      r.label = props.label;
     }
     return r;
   }
 }
 
-export class LineUpReduceColumn extends ALineUpColumnBuilder<{type: 'min' | 'max' | 'mean' | 'median', label?: string}> {
-  build() {
+export interface ILineUpReduceColumnProps {
+  type: 'min' | 'max' | 'mean' | 'median';
+  label?: string;
+  children: React.ReactNode;
+}
+
+export class LineUpReduceColumn extends ALineUpColumnBuilder<ILineUpReduceColumnProps> {
+  static build(props: ILineUpReduceColumnProps) {
     const r: IReduceBuilder = {
-      type: this.props.type,
-      columns: filterChildren<LineUpColumn>(this.props.children, LineUpColumn).map((d) => d.build())
+      type: props.type,
+      columns: filterChildrenProps<LineUpColumn>(props.children, LineUpColumn).map((d) => d.type.build(d.props))
     };
-    if (this.props.label) {
-      r.label = this.props.label;
+    if (props.label) {
+      r.label = props.label;
     }
     return r;
   }
 }
 
-export class LineUpScriptedColumn extends ALineUpColumnBuilder<{code: string, label?: string}> {
-  build() {
+export interface ILineUpScriptColumnProps {
+  code: string;
+  label?: string;
+  children: React.ReactNode;
+}
+
+export class LineUpScriptedColumn extends ALineUpColumnBuilder<ILineUpScriptColumnProps> {
+  static build(props: ILineUpScriptColumnProps) {
     const r: IScriptedBuilder = {
       type: 'script',
-      code: this.props.code,
-      columns: filterChildren<LineUpColumn>(this.props.children, LineUpColumn).map((d) => d.build())
+      code: props.code,
+      columns: filterChildrenProps<LineUpColumn>(props.children, LineUpColumn).map((d) => d.type.build(d.props))
     };
-    if (this.props.label) {
-      r.label = this.props.label;
+    if (props.label) {
+      r.label = props.label;
     }
     return r;
   }
 }
 
-export class LineUpSupportColumn extends ALineUpColumnBuilder<{type: 'rank'|'selection'|'group'|'aggregate'|'*'}> {
-  build() {
-    return `_${this.props.type}`;
+export interface ILineUpSupportColumnProps {
+  type: 'rank'|'selection'|'group'|'aggregate'|'*';
+}
+
+export class LineUpSupportColumn extends ALineUpColumnBuilder<ILineUpSupportColumnProps> {
+  static build(props: ILineUpSupportColumnProps) {
+    return `_${props.type}`;
   }
 }
 
 export class LineUpAllColumns extends ALineUpColumnBuilder<{}> {
-  build() {
+  static build() {
     return '*';
   }
 }
