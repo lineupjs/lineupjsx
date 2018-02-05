@@ -16,12 +16,9 @@ export function filterChildren<T>(children: React.ReactNode, clazz: any): T[] {
   });
 }
 
-
-export function isSame<T>(current: T, prev: T, ...props: (keyof T)[]) {
+export function isSame<T>(current: T, prev: T, props: (keyof T)[]) {
   if(props.every((p) => equal(current[p], prev[p]))) {
     return null;
   }
-  const r: Partial<T> = {};
-  props.forEach((p) => r[p] = current[p]);
-  return r;
+  return pick(current, ...props);
 }
