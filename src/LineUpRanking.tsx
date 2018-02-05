@@ -1,22 +1,32 @@
 import {LocalDataProvider, Ranking, buildRanking, IImposeColumnBuilder, INestedBuilder, IWeightedSumBuilder, IReduceBuilder, IScriptedBuilder} from 'lineupjs';
 import * as React from 'react';
-import {filterChildren, filterChildrenProps} from './utils';
+import {filterChildrenProps} from './utils';
 
 export interface ILineUpRankingProps {
   sortBy?: (string|{column: string, asc: 'asc'|'desc'|boolean})|((string|{column: string, asc: 'asc'|'desc'|boolean})[]);
   groupBy?: string[]|string;
   columns?: (string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder)[];
+  children: React.ReactNode;
 }
 
 export default class LineUpRanking extends React.PureComponent<Readonly<ILineUpRankingProps>, {}> {
+  static merge(props: ILineUpRankingProps) {
+    const inline = filterChildrenProps<ALineUpColumnBuilder<any>>(props.children, ALineUpColumnBuilder).map((c) => c.type.build(c.props));
+
+    const columns = (props.columns || []).concat(inline);
+
+    const r = {...props, columns};
+    delete r.children;
+    return r;
+  }
   /*
    * build the column description
    */
-  build(data: LocalDataProvider): Ranking {
+  static build(props: ILineUpRankingProps, data: LocalDataProvider): Ranking {
     const r = buildRanking();
 
-    if (this.props.sortBy) {
-      const s = Array.isArray(this.props.sortBy)? this.props.sortBy :[this.props.sortBy];
+    if (props.sortBy) {
+      const s = Array.isArray(props.sortBy)? props.sortBy :[props.sortBy];
       s.forEach((si) => {
         if (typeof si === 'string') {
           r.sortBy(si);
@@ -25,16 +35,13 @@ export default class LineUpRanking extends React.PureComponent<Readonly<ILineUpR
         }
       });
     }
-    if (this.props.groupBy) {
-      const s = Array.isArray(this.props.groupBy)? this.props.groupBy :[this.props.groupBy];
+    if (props.groupBy) {
+      const s = Array.isArray(props.groupBy)? props.groupBy :[props.groupBy];
       r.groupBy(...s);
     }
-    if (this.props.columns) {
-      this.props.columns.forEach((c) => r.column(c));
+    if (props.columns) {
+      props.columns.forEach((c) => r.column(c));
     }
-
-    filterChildren<ALineUpColumnBuilder<any>>(this.props.children, ALineUpColumnBuilder).forEach((c) => r.column(c.build()));
-
     return r.build(data);
   }
 }
