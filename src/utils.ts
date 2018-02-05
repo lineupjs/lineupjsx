@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as equal from 'fast-deep-equal';
 
 
 export function isTypeInstance(clazz: any, superClass: any) {
@@ -13,4 +14,14 @@ export function filterChildren<T>(children: React.ReactNode, clazz: any): T[] {
   return React.Children.toArray(children).filter((d: any) => typeof d !== 'string' && isTypeInstance(d.type, clazz)).map((d: any) => {
     return <T>(new d.type(d.props, null));
   });
+}
+
+
+export function isSame<T>(current: T, prev: T, ...props: (keyof T)[]) {
+  if(props.every((p) => equal(current[p], prev[p]))) {
+    return null;
+  }
+  const r: Partial<T> = {};
+  props.forEach((p) => r[p] = current[p]);
+  return r;
 }

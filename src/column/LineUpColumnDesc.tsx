@@ -18,7 +18,7 @@ export interface ILineUpColumnDescProps {
   summaryRenderer?: string;
 }
 
-export default class LineUpColumnDesc<T extends IColumnDesc = IColumnDesc, P extends ILineUpColumnDescProps = ILineUpColumnDescProps> extends React.Component<Readonly<P>, {}> {
+export default class LineUpColumnDesc<T extends IColumnDesc = IColumnDesc, P extends ILineUpColumnDescProps = ILineUpColumnDescProps> extends React.PureComponent<Readonly<P>, {}> {
   protected get type() {
     return this.props.type;
   }

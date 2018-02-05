@@ -8,7 +8,7 @@ export interface ILineUpRankingProps {
   columns?: (string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder)[];
 }
 
-export default class LineUpRanking extends React.Component<Readonly<ILineUpRankingProps>, {}> {
+export default class LineUpRanking extends React.PureComponent<Readonly<ILineUpRankingProps>, {}> {
   /*
    * build the column description
    */
@@ -33,13 +33,13 @@ export default class LineUpRanking extends React.Component<Readonly<ILineUpRanki
       this.props.columns.forEach((c) => r.column(c));
     }
 
-    // TODO nested children
+    filterChildren<ALineUpColumnBuilder<any>>(this.props.children, ALineUpColumnBuilder).forEach((c) => r.column(c.build()));
 
     return r.build(data);
   }
 }
 
-export abstract class ALineUpColumnBuilder<T> extends React.Component<Readonly<T>, {}> {
+export abstract class ALineUpColumnBuilder<T> extends React.PureComponent<Readonly<T>, {}> {
   abstract build(): string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder;
 }
 
