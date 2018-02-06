@@ -7,8 +7,8 @@ import LineUpRanking, {ILineUpRankingProps} from './LineUpRanking';
 
 export interface ILineUpDataProps {
   data: any[];
-  selection?: number[];
-  highlight?: number;
+  selection?: number[]|null;
+  highlight?: number|null;
 
   onSelectionChanged?(selection: number[]): void;
   onHighlightChanged?(highlight: number): void;
@@ -73,6 +73,7 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
 
   private prevRankings: IRankingContext;
   private prevColumns: IColumnContext;
+  private prevHighlight: number;
 
   private readonly onSelectionChanged = (indices: number[]) => {
     if (this.props.onSelectionChanged) {
@@ -80,6 +81,7 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     }
   }
   private readonly onHighlightChanged = (highlight: number) => {
+    this.prevHighlight = highlight;
     if (this.props.onHighlightChanged) {
       this.props.onHighlightChanged(highlight);
     }
@@ -92,6 +94,7 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
   componentDidMount() {
     this.data = this.buildProvider();
     this.instance = this.createInstance(this.node, this.data, pick(this.props, lineupOptions));
+    this.instance.on(LineUpImpl.EVENT_HIGHLIGHT_CHANGED, this.onHighlightChanged);
   }
 
   private resolveColumnDescs(data: any[]): IColumnContext {
@@ -164,6 +167,13 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
       if (providerChanged) {
         this.instance!.setDataProvider(this.data!);
       }
+
+      if (providerChanged || (this.props.highlight != null && this.prevHighlight !== this.props.highlight)) {
+        this.prevHighlight = this.props.highlight == null ? -1 : this.props.highlight;
+        this.instance!.on(LineUpImpl.EVENT_HIGHLIGHT_CHANGED, null);
+        this.instance!.setHighlight(this.prevHighlight);
+        this.instance!.on(LineUpImpl.EVENT_HIGHLIGHT_CHANGED, this.onHighlightChanged);
+      }
       return;
     }
     // recreate lineup
@@ -172,6 +182,9 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     }
     console.log('build lineup instance');
     this.instance = this.createInstance(this.node, this.data!, changedLineUpOptions);
+
+    this.prevHighlight = this.props.highlight == null ? -1 : this.props.highlight;
+    this.instance!.setHighlight(this.prevHighlight);
     this.instance.on(LineUpImpl.EVENT_HIGHLIGHT_CHANGED, this.onHighlightChanged);
   }
 
@@ -199,12 +212,6 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, null);
     this.data.setSelection(this.props.selection || []);
     this.data.on(LocalDataProvider.EVENT_SELECTION_CHANGED, this.onSelectionChanged);
-
-    if (this.props.highlight != null) {
-      this.instance!.on(LineUpImpl.EVENT_HIGHLIGHT_CHANGED, null);
-      this.instance!.setHighlight(this.props.highlight);
-      this.instance!.on(LineUpImpl.EVENT_HIGHLIGHT_CHANGED, this.onHighlightChanged);
-    }
     return false;
   }
 
