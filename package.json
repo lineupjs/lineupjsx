@@ -2,7 +2,7 @@
   "name": "lineupjsx",
   "description": "a fast engine for rendering large tables consisting of rows, rows+columns, multiple rows+columns instances.",
   "homepage": "https://sgratzl.github.io/lineupjsx/",
-  "version": "1.0.0-SNAPSHOT",
+  "version": "1.0.0-beta.1",
   "author": {
     "name": "Samuel Gratzl",
     "email": "samuel_gratzl@gmx.at"
@@ -85,7 +85,7 @@
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
     "fast-deep-equal": "^1.0.0",
-    "lineupjs": "^3.0.0-beta.1",
+    "lineupjs": "^3.0.1-beta.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
