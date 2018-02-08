@@ -9,6 +9,10 @@ export interface ILineUpRankingProps {
   children: React.ReactNode;
 }
 
+export abstract class ALineUpColumnBuilder<T> extends React.PureComponent<Readonly<T>, {}> {
+
+}
+
 export default class LineUpRanking extends React.PureComponent<Readonly<ILineUpRankingProps>, {}> {
   static merge(props: ILineUpRankingProps) {
     const inline = filterChildrenProps<ALineUpColumnBuilder<any>>(props.children, ALineUpColumnBuilder).map((c) => c.type.build(c.props));
@@ -44,10 +48,6 @@ export default class LineUpRanking extends React.PureComponent<Readonly<ILineUpR
     }
     return r.build(data);
   }
-}
-
-export abstract class ALineUpColumnBuilder<T> extends React.PureComponent<Readonly<T>, {}> {
-
 }
 
 export class LineUpColumn extends ALineUpColumnBuilder<{column: '*'|string}> {

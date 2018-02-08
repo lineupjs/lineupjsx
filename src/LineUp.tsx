@@ -107,7 +107,7 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
       deriveColors,
       deriveColumns,
       deriveColumnNames
-    }
+    };
   }
 
   private resolveRankings(): IRankingContext {
