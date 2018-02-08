@@ -53,7 +53,9 @@ const webpackloaders = [
  */
 function generateWebpack(options) {
   const base = {
-    entry: {
+    entry: options.isProduction ? {
+      LineUpJSx: './src/index.tsx',
+    }: {
       LineUpJSx: './src/index.tsx',
       builder2: './demo/builder2.tsx',
       builder3: './demo/builder3.tsx'
