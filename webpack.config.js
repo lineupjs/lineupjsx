@@ -86,10 +86,10 @@ function generateWebpack(options) {
       })
       //rest depends on type
     ],
-    externals: {
-      'react': 'React',
-      'react-dom': 'ReactDOM'
-    },
+    externals: { //react always external
+      react: { amd: 'react', root: 'React', commonjs: 'react', commonjs2: 'react' },
+      'react-dom': { amd: 'react-dom', root: 'ReactDOM', commonjs: 'react-dom', commonjs2: 'react-dom' }
+},
     module: {
       loaders: webpackloaders.slice()
     },
