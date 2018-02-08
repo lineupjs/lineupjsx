@@ -1,7 +1,7 @@
 {
   "name": "lineupjsx",
-  "description": "a fast engine for rendering large tables consisting of rows, rows+columns, multiple rows+columns instances.",
-  "homepage": "https://sgratzl.github.io/lineupjsx/",
+  "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
+  "homepage": "https://github.com/sgratzl/lineupjsx",
   "version": "1.0.0-beta.1",
   "author": {
     "name": "Samuel Gratzl",
