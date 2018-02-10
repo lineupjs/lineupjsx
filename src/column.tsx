@@ -6,6 +6,10 @@ import {
   IBuilderAdapterStringColumnDescProps,
 } from 'lineupjs';
 import * as React from 'react';
+import {
+  IImposeColumnBuilder, INestedBuilder, IReduceBuilder, IScriptedBuilder,
+  IWeightedSumBuilder
+} from '../../lineupjs/src/builder/index';
 
 export declare type ILineUpColumnDescProps = IBuilderAdapterColumnDescProps;
 export declare type ILineUpCategoricalColumnDescProps = IBuilderAdapterCategoricalColumnDescProps;
@@ -15,7 +19,9 @@ export declare type ILineUpHierarchyColumnDescProps = IBuilderAdapterHierarchyCo
 export declare type ILineUpStringColumnDescProps = IBuilderAdapterStringColumnDescProps;
 
 export class LineUpColumnDesc<P extends ILineUpColumnDescProps = ILineUpColumnDescProps> extends React.PureComponent<Readonly<P>, {}> {
-  static readonly build = builderAdapter.buildGeneric;
+  static build<P extends ILineUpColumnDescProps>(props: P): (string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder) {
+    return builderAdapter.buildGeneric(props);
+  }
 }
 
 export class LineUpCategoricalColumnDesc extends LineUpColumnDesc<ILineUpCategoricalColumnDescProps> {
