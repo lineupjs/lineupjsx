@@ -1,15 +1,19 @@
 import {
-  builderAdapter, IBuilderAdapterCategoricalColumnDescProps, IBuilderAdapterColumnDescProps,
+  builderAdapter,
+  IBuilderAdapterCategoricalColumnDescProps,
+  IBuilderAdapterColumnDescProps,
   IBuilderAdapterDateColumnDescProps,
   IBuilderAdapterHierarchyColumnDescProps,
   IBuilderAdapterNumberColumnDescProps,
   IBuilderAdapterStringColumnDescProps,
+  ICategoricalColumnDesc,
+  IColumnDesc,
+  IDateColumnDesc,
+  IHierarchyColumnDesc,
+  INumberColumnDesc,
+  IStringColumnDesc
 } from 'lineupjs';
 import * as React from 'react';
-import {
-  IImposeColumnBuilder, INestedBuilder, IReduceBuilder, IScriptedBuilder,
-  IWeightedSumBuilder
-} from '../../lineupjs/src/builder/index';
 
 export declare type ILineUpColumnDescProps = IBuilderAdapterColumnDescProps;
 export declare type ILineUpCategoricalColumnDescProps = IBuilderAdapterCategoricalColumnDescProps;
@@ -19,27 +23,37 @@ export declare type ILineUpHierarchyColumnDescProps = IBuilderAdapterHierarchyCo
 export declare type ILineUpStringColumnDescProps = IBuilderAdapterStringColumnDescProps;
 
 export class LineUpColumnDesc<P extends ILineUpColumnDescProps = ILineUpColumnDescProps> extends React.PureComponent<Readonly<P>, {}> {
-  static build<P extends ILineUpColumnDescProps>(props: P): (string | IImposeColumnBuilder | INestedBuilder | IWeightedSumBuilder | IReduceBuilder | IScriptedBuilder) {
-    return builderAdapter.buildGeneric(props);
+  static build<P extends ILineUpColumnDescProps>(props: P, _data: any[]): IColumnDesc {
+    return builderAdapter.build(props);
   }
 }
 
 export class LineUpCategoricalColumnDesc extends LineUpColumnDesc<ILineUpCategoricalColumnDescProps> {
-  static readonly build = builderAdapter.buildCategorical;
+  static build(props: ILineUpCategoricalColumnDescProps, data: any[]): ICategoricalColumnDesc {
+    return builderAdapter.buildCategorical(props, data);
+  }
 }
 
 export class LineUpDateColumnDesc extends LineUpColumnDesc<ILineUpDateColumnDescProps> {
-  static readonly build = builderAdapter.buildDate;
+  static build(props: ILineUpDateColumnDescProps): IDateColumnDesc {
+    return builderAdapter.buildDate(props);
+  }
 }
 
 export class LineUpHierarchyColumnDesc extends LineUpColumnDesc<ILineUpHierarchyColumnDescProps> {
-  static readonly build = builderAdapter.buildHierarchy;
+  static build(props: any): IHierarchyColumnDesc {
+    return builderAdapter.buildHierarchy(props);
+  }
 }
 
 export class LineUpNumberColumn extends LineUpColumnDesc<ILineUpNumberColumnDescProps> {
-  static readonly build = builderAdapter.buildNumber;
+  static build(props: ILineUpNumberColumnDescProps, data: any[]): INumberColumnDesc {
+    return builderAdapter.buildNumber(props, data);
+  }
 }
 
 export class LineUpStringColumnDesc extends LineUpColumnDesc<ILineUpStringColumnDescProps> {
-  static readonly build = builderAdapter.buildString;
+  static build(props: ILineUpStringColumnDescProps): IStringColumnDesc {
+    return builderAdapter.buildString(props);
+  }
 }
