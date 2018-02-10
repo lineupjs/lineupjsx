@@ -66,8 +66,8 @@ export class LineUpNestedColumn extends ALineUpColumnBuilder<ILineUpNestedColumn
 }
 
 export class LineUpWeightedColumn extends ALineUpColumnBuilder<{ column: string, weight: number }> {
-  build() {
-    return this.props.column;
+  static build(props: { column: string }) {
+    return props.column;
   }
 
   get weight() {

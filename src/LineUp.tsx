@@ -28,7 +28,7 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
   }
 
   componentDidMount() {
-    this.adapter.componentMouned();
+    this.adapter.componentDidMount();
   }
 
   componentDidUpdate(prevProps: Readonly<ILineUpProps>) {
