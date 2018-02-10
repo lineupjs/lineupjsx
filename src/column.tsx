@@ -46,7 +46,7 @@ export class LineUpHierarchyColumnDesc extends LineUpColumnDesc<ILineUpHierarchy
   }
 }
 
-export class LineUpNumberColumn extends LineUpColumnDesc<ILineUpNumberColumnDescProps> {
+export class LineUpNumberColumnDesc extends LineUpColumnDesc<ILineUpNumberColumnDescProps> {
   static build(props: ILineUpNumberColumnDescProps, data: any[]): INumberColumnDesc {
     return builderAdapter.buildNumber(props, data);
   }
