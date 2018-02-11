@@ -2,7 +2,7 @@
   "name": "lineupjsx",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/sgratzl/lineupjsx",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.4",
   "author": {
     "name": "Samuel Gratzl",
     "email": "samuel_gratzl@gmx.at"
@@ -16,6 +16,8 @@
     "url": "https://github.com/sgratzl/lineupjsx.git"
   },
   "main": "build/LineUpJSx.js",
+  "jsnext:main": "build/LineUpJsx.js",
+  "module": "build/LineUpJsx.js",
   "types": "build/typings/index.d.ts",
   "files": [
     "build",
@@ -27,18 +29,20 @@
     "src/**/*.scss"
   ],
   "scripts": {
+    "clean": "rimraf build dist",
     "compile": "tsc",
     "lint": "tslint --project tsconfig.json -c tslint.json && stylelint src/**/*.scss",
-    "docs": "typedoc --out build/docs/ src tsd.d.ts",
-    "prebuild": "node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test",
-    "pretest": "npm run compile",
+    "docs": "typedoc --out ./build/docs/ src tsd.d.ts",
+    "prebuild": "npm run clean && (node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test)",
+    "pretest": "npm run clean && npm run compile",
     "test": "node -e \"require('fs').existsSync('./tests')?0:1\" || karma start",
     "posttest": "npm run lint",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
     "build:dev": "webpack",
     "build": "webpack --env prod",
     "watch": "webpack --watch",
-    "preversion": "npm test && npm run build",
+    "preversion": "npm test",
+    "prepublishOnly": "npm run build",
     "release:major": "npm version major && npm publish && git push --follow-tags",
     "release:minor": "npm version minor && npm publish && git push --follow-tags",
     "release:patch": "npm version patch && npm publish && git push --follow-tags",
@@ -65,6 +69,7 @@
     "karma-webpack": "^2.0.9",
     "mkdirp": "^0.5.1",
     "node-sass": "^4.7.2",
+    "rimraf": "^2.6.2",
     "raw-loader": "^1.0.0-beta.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
@@ -75,7 +80,6 @@
     "tslint-consistent-codestyle": "^1.11.0",
     "tslint-eslint-rules": "^4.1.1",
     "typedoc": "^0.10.0",
-    "npm-run-all": "^4.1.2",
     "typescript": "^2.7.1",
     "uglify-es": "^3.3.9",
     "uglifyjs-webpack-plugin": "^1.1.8",
@@ -86,8 +90,7 @@
   "dependencies": {
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
-    "fast-deep-equal": "^1.0.0",
-    "lineupjs": "^3.0.1-beta.2",
+    "lineupjs": "^3.0.1-beta.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
