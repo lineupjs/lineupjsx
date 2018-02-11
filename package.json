@@ -16,6 +16,8 @@
     "url": "https://github.com/sgratzl/lineupjsx.git"
   },
   "main": "build/LineUpJSx.js",
+  "jsnext:main": "build/LineUpJsx.js",
+  "module": "build/LineUpJsx.js",
   "types": "build/typings/index.d.ts",
   "files": [
     "build",
