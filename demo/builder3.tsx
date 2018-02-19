@@ -25,7 +25,7 @@ class Builder3 extends React.PureComponent<{}, IBuilder3State> {
   constructor(props: {}, context: any) {
     super(props, context);
 
-    this.state =  {
+    this.state = {
       selection: [],
       sidePanelCollapsed: true,
       highlight: -1,
@@ -36,22 +36,25 @@ class Builder3 extends React.PureComponent<{}, IBuilder3State> {
 
   render() {
     return <div>
-        <LineUp data={this.state.arr} sidePanel highlight={this.state.highlight >= 0 ? this.state.highlight : null} sidePanelCollapsed={this.state.sidePanelCollapsed} selection={this.state.selection}
-          onSelectionChanged={(s) => this.setState({ selection: s})}
-          onHighlightChanged={(h) => console.log(h)}>
+      <LineUp data={this.state.arr} sidePanel highlight={this.state.highlight >= 0 ? this.state.highlight : null} sidePanelCollapsed={this.state.sidePanelCollapsed} selection={this.state.selection}
+        onSelectionChanged={(s) => this.setState({selection: s})}
+        onHighlightChanged={(h) => {
+          console.log(h);
+          this.setState({highlight: h});
+        }}>
         <LineUpRanking groupBy={this.state.groupBy} sortBy="a:desc">
           <LineUpSupportColumn type="*" />
           <LineUpColumn column="*" />
         </LineUpRanking>
-        </LineUp>
-        <div>
-          <button onClick={() => this.setState({sidePanelCollapsed: !this.state.sidePanelCollapsed})}>Panel</button>
-          <button onClick={() => this.setState({arr: this.state.arr.slice(10)})}>Data</button>
-          <button onClick={() => this.setState({groupBy: this.state.groupBy === 'cat' ? 'cat2' : 'cat'})}>Group</button>
-          <button onClick={() => this.setState({highlight: this.state.highlight + 20})}>Highlight</button>
-          {this.state.selection.map((d) => <div key={d}>{d}</div>)}
-        </div>
-      </div>;
+      </LineUp>
+      <div>
+        <button onClick={() => this.setState({sidePanelCollapsed: !this.state.sidePanelCollapsed})}>Panel</button>
+        <button onClick={() => this.setState({arr: this.state.arr.slice(10)})}>Data</button>
+        <button onClick={() => this.setState({groupBy: this.state.groupBy === 'cat' ? 'cat2' : 'cat'})}>Group</button>
+        <button onClick={() => this.setState({highlight: this.state.highlight + 20})}>Highlight</button>
+        {this.state.selection.map((d) => <div key={d}>{d}</div>)}
+      </div>
+    </div>;
   }
 }
 
