@@ -13,7 +13,7 @@ import {filterChildrenProps} from './utils';
 
 export declare type ILineUpProps = IBuilderAdapterProps;
 
-export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> {
+export default class LineUp extends React.PureComponent<Readonly<ILineUpProps>, {}> {
   private node: HTMLElement;
 
   private readonly adapter = new  builderAdapter.Adapter({
