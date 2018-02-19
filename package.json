@@ -90,7 +90,7 @@
   "dependencies": {
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
-    "lineupjs": "^3.0.1-beta.3",
+    "lineupjs": "github:sgratzl/lineupjs#develop",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
