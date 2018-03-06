@@ -2,7 +2,7 @@
   "name": "lineupjsx",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/sgratzl/lineupjsx",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "author": {
     "name": "Samuel Gratzl",
     "email": "samuel_gratzl@gmx.at"
@@ -92,7 +92,7 @@
   "dependencies": {
     "@types/react": "^16.0.40",
     "@types/react-dom": "^16.0.4",
-    "lineupjs": "^3.0.1-beta.5",
+    "lineupjs": "^3.0.1-beta.6",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
