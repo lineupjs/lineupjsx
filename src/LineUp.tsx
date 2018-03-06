@@ -13,17 +13,17 @@ import {filterChildrenProps} from './utils';
 
 export declare type ILineUpProps = IBuilderAdapterProps;
 
-export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> {
-  private node: HTMLElement;
+export default class LineUp extends React.PureComponent<Readonly<ILineUpProps>, {}> {
+  private node: HTMLElement | null = null;
 
-  private readonly adapter = new  builderAdapter.Adapter({
+  private readonly adapter = new builderAdapter.Adapter({
     props: () => this.props,
-    createInstance: (data: LocalDataProvider, options: Partial<ILineUpOptions>) => this.createInstance(this.node, data, options),
+    createInstance: (data: LocalDataProvider, options: Partial<ILineUpOptions>) => this.createInstance(this.node!, data, options),
     columnDescs: (data: any[]) => filterChildrenProps<LineUpColumnDesc, any>(this.props.children, LineUpColumnDesc).map((d) => d.type.build(d.props, data)),
     rankingBuilders: () => filterChildrenProps<LineUpRanking>(this.props.children, LineUpRanking).map((d) => LineUpRanking.merge(d.props))
   });
 
-  protected createInstance(node: HTMLElement, data: LocalDataProvider, options: Partial<ITaggleOptions>): LineUpImpl|Taggle {
+  protected createInstance(node: HTMLElement, data: LocalDataProvider, options: Partial<ITaggleOptions>): LineUpImpl | Taggle {
     return new LineUpImpl(node, data, options);
   }
 
@@ -42,7 +42,7 @@ export default class LineUp extends React.Component<Readonly<ILineUpProps>, {}> 
 
   render() {
     return <div className="lu-wrapper">
-      <div ref={(d) => this.node = d as HTMLElement}/>
+      <div ref={(d) => this.node = d as HTMLElement} />
     </div>;
   }
 }

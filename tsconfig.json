@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "es6",
+    "module": "esnext",
     "target": "es5",
     "importHelpers": true,
     "sourceMap": true,
@@ -25,8 +25,10 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "stripInternal": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
     "skipLibCheck": true,
-    "baseUrl": "../"
+    "esModuleInterop": true
   },
   "compileOnSave": false,
   "include": [
@@ -35,7 +37,6 @@
     "demo/**/*.ts",
     "demo/**/*.tsx",
     "tests/**/*.ts",
-    "index.ts",
     "tsd.d.ts"
   ]
 }
