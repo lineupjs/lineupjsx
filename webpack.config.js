@@ -45,10 +45,12 @@ module.exports = (env) => {
   }
 
   return {
-    entry: {
+    entry: env === 'dev' ? {
       LineUpJSx: './src/index.tsx',
       builder2: './demo/builder2.tsx',
       builder3: './demo/builder3.tsx'
+    } : {
+      LineUpJSx: './src/index.tsx'
     },
     output: {
       path: resolve(__dirname, 'build'),
