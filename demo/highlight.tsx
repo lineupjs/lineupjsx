@@ -21,7 +21,7 @@ class Render extends React.Component<any, any> {
     this.state = {
       highlight: -1,
       selection: []
-    }
+    };
   }
   render() {
     return <div>
