@@ -48,7 +48,8 @@ module.exports = (env) => {
     entry: env === 'dev' ? {
       LineUpJSx: './src/index.tsx',
       builder2: './demo/builder2.tsx',
-      builder3: './demo/builder3.tsx'
+      builder3: './demo/builder3.tsx',
+      highlight: './demo/highlight.tsx'
     } : {
       LineUpJSx: './src/index.tsx'
     },
