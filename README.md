@@ -16,8 +16,8 @@ npm install --save lineupjsx
 ```
 
 ```html
-<link href="https://sgratzl.github.io/lineupjs_docs/masterx/LineUpJSx.css" rel="stylesheet">
-<script src="https://sgratzl.github.io/lineupjs_docs/masterx/LineUpJSx.min.js"></script>
+<link href="https://unpkg.com/lineupjs/build/LineUpJS.css" rel="stylesheet">
+<script src="https://unpkg.com/lineupjs/build/LineUpJS.js"></script>
 ```
 
 **Minimal Usage Example**
