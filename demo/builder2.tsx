@@ -14,7 +14,7 @@ for (let i = 0; i < 100; ++i) {
 }
 
 function builder2() {
-  return <LineUp data={arr} sidePanel sidePanelCollapsed defaultRanking>
+  return <LineUp data={arr} sidePanel sidePanelCollapsed defaultRanking style={{height: '500px'}}>
     <LineUpStringColumnDesc column="d" label="Label" width={100} />
     <LineUpCategoricalColumnDesc column="cat" categories={cats} color="green" />
     <LineUpCategoricalColumnDesc column="cat2" categories={cats} color="blue" />
