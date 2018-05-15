@@ -23,11 +23,21 @@ class Render extends React.Component<any, any> {
       selection: []
     };
   }
+
+  private readonly onHighlightChanged = (highlight: number) => {
+    console.log(highlight);
+    this.setState({highlight});
+  };
+
+  private readonly onSelect = (selection: number[]) => {
+    this.setState({selection});
+  }
+
   render() {
     return <div>
       <LineUpJS.LineUp data={d}
-              onSelectionChanged={(selection) => this.setState({selection})}
-              onHighlightChanged={(highlight) => this.setState({highlight})}
+              onSelectionChanged={this.onSelect}
+              onHighlightChanged={this.onHighlightChanged}
               selection={this.state.selection}
               highlight={this.state.highlight}
               >
