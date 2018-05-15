@@ -11,7 +11,7 @@ import {LineUpColumnDesc} from './column';
 import LineUpRanking from './LineUpRanking';
 import {filterChildrenProps} from './utils';
 
-export declare type ILineUpProps = IBuilderAdapterProps;
+export declare type ILineUpProps = IBuilderAdapterProps & { style?: React.CSSProperties, className?: string };
 
 export default class LineUp extends React.PureComponent<Readonly<ILineUpProps>, {}> {
   private node: HTMLElement | null = null;
@@ -41,7 +41,8 @@ export default class LineUp extends React.PureComponent<Readonly<ILineUpProps>, 
   }
 
   render() {
-    return <div className="lu-wrapper">
+    const className = this.props.className ? `lu-wrapper ${this.props.className}` : 'lu-wrapper';
+    return <div className={className} style={this.props.style || {}}>
       <div ref={(d) => this.node = d as HTMLElement} />
     </div>;
   }
