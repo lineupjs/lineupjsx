@@ -26,7 +26,7 @@ function builder2() {
     <LineUpCategoricalColumnDesc column="cat" categories={cats} color="green" />
     <LineUpCategoricalColumnDesc column="cat2" categories={cats} color="blue" />
     <LineUpNumberColumnDesc column="a" domain={[0, 10]} color="blue" />
-    <LineUpActionsColumnDesc actions={actions}/>
+    <LineUpActionsColumnDesc actions={actions} column="a"/>
     <LineUpRanking groupBy="cat" sortBy="a:desc">
       <LineUpSupportColumn type="*" />
       <LineUpColumn column="*" />
