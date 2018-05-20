@@ -18,21 +18,27 @@
   "main": "build/LineUpJSx.js",
   "jsnext:main": "build/LineUpJSx.js",
   "module": "build/LineUpJSx.js",
-  "types": "build/typings/index.d.ts",
+  "unpkg": "build/LineUpJSx.js",
+  "types": "src/index.d.ts",
+  "sideEffects": [
+    "*.scss",
+    "*.css"
+  ],
   "files": [
     "build",
     "!build/docs",
     "!build/demo",
-    "src/**/*.ts",
-    "src/assets/**/",
-    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.d.ts",
+    "src/assets",
     "src/**/*.scss"
   ],
   "scripts": {
-    "clean": "rimraf build dist src/**/*.map src/**/*.js tests/**/*.js tests/**/*.map demo/**/*.js demo/**/*.map",
+    "clean": "rimraf build dist && npm run clean:compile",
+    "clean:compile": "rimraf src/**/*.map src/**/*.js src/**/*.d.ts tests/**/*.js tests/**/*.map tests/**/*.d.ts",
     "compile": "tsc",
     "lint": "tslint --project tsconfig.json -c tslint.json && stylelint src/**/*.scss",
-    "docs": "typedoc --out ./build/docs/ src tsd.d.ts",
+    "docs": "npm run clean:compile && typedoc --out ./build/docs/ src tsd.d.ts",
     "prebuild": "npm run clean && (node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test)",
     "pretest": "npm run clean && npm run compile",
     "test": "node -e \"require('fs').existsSync('./tests')?0:1\" || karma start",

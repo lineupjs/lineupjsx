@@ -3,9 +3,12 @@
 /build/
 /dist/
 node_modules/
-/src/**/*.js
+src/**/*.js
+src/**/*.d.ts
 /demo/**/*.js
+/demo/**/*.d.ts
 /tests/**/*.js
+/tests/**/*.d.ts
 *.map
 *.css
 *.log
