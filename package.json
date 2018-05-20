@@ -98,7 +98,7 @@
   "dependencies": {
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
-    "lineupjs": "^3.0.1-beta.11",
+    "lineupjs": "^3.0.1-beta.12",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   }
