@@ -100,7 +100,7 @@
   "dependencies": {
     "@types/react": "^16.4.5",
     "@types/react-dom": "^16.0.6",
-    "lineupjs": "^3.0.1-beta.13",
+    "lineupjs": "^3.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }
