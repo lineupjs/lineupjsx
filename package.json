@@ -2,7 +2,7 @@
   "name": "lineupjsx",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/datavisyn/lineupjsx",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Samuel Gratzl",
     "email": "samuel_gratzl@gmx.at"
