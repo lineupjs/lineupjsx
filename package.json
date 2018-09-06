@@ -2,7 +2,7 @@
   "name": "lineupjsx",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/datavisyn/lineupjsx",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Samuel Gratzl",
     "email": "samuel_gratzl@gmx.at"
@@ -40,8 +40,7 @@
     "lint": "tslint --project tsconfig.json -c tslint.json && stylelint src/**/*.scss",
     "docs": "npm run clean:compile && typedoc --out ./build/docs/ src tsd.d.ts",
     "pretest": "npm run clean && npm run compile",
-    "test": "node -e \"process.exit(require('fs').existsSync('./tests')?1:0)\" || karma start",
-    "test:watch": "karma start --autoWatch=true --singleRun=false",
+    "test": "echo 'no tests'",
     "posttest": "npm run lint",
     "prebuild": "npm run clean && (node -e \"process.exit(process.env.PHOVEA_SKIP_TESTS === undefined?1:0)\" || npm run test)",
     "build:dev": "webpack --mode development --devtool source-map",
@@ -60,22 +59,13 @@
     "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.8.8",
     "cache-loader": "^1.2.2",
     "css-loader": "^1.0.0",
     "extract-loader": "^2.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "fork-ts-checker-webpack-plugin": "^0.4.4",
-    "jasmine-core": "^3.1.0",
-    "jasmine-promises": "^0.4.1",
     "json-loader": "^0.5.7",
-    "karma": "^2.0.5",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.2",
-    "karma-junit-reporter": "^1.2.0",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^3.0.0",
     "mkdirp": "^0.5.1",
     "node-sass": "^4.9.2",
     "raw-loader": "^1.0.0-beta.0",
@@ -100,7 +90,7 @@
   "dependencies": {
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
-    "lineupjs": "^3.1.1",
+    "lineupjs": "^3.1.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
   }
