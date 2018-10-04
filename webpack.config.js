@@ -20,7 +20,7 @@ const banner = '/*! ' + (pkg.title || pkg.name) + ' - v' + pkg.version + ' - ' +
  */
 module.exports = (env, options) => {
   const dev = options.mode.startsWith('d');
-  return {
+  const config = {
     node: false, // no polyfills
     entry: dev ? {
       LineUpJSx: './src/index.tsx',
@@ -70,7 +70,7 @@ module.exports = (env, options) => {
         root: 'React',
         commonjs: 'react',
         commonjs2: 'react'
-      },,
+      },
       'react-dom': {
         amd: 'react-dom',
         root: 'ReactDOM',
@@ -151,4 +151,18 @@ module.exports = (env, options) => {
       contentBase: 'demo'
     }
   };
+
+  if (dev) {
+    return config;
+  }
+
+  // create a bundled version, too
+  const bundle = Object.assign({}, config);
+  bundle.entry = {
+    'LineUpJSx.bundle': './src/index.tsx'
+  }
+  bundle.externals = Object.assign({}, config.externals);
+  delete bundle.externals.lineupjs;
+
+  return [config, bundle];
 };

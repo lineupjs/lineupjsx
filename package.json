@@ -15,10 +15,10 @@
     "type": "git",
     "url": "https://github.com/datavisyn/lineupjsx.git"
   },
-  "main": "build/LineUpJSx.js",
+  "main": "build/LineUpJSx.bundle.js",
   "jsnext:main": "build/LineUpJSx.js",
   "module": "build/LineUpJSx.js",
-  "unpkg": "build/LineUpJSx.js",
+  "unpkg": "build/LineUpJSx.bundle.js",
   "types": "src/index.d.ts",
   "sideEffects": [
     "*.scss",
