@@ -22,12 +22,7 @@ module.exports = (env, options) => {
   const dev = options.mode.startsWith('d');
   const config = {
     node: false, // no polyfills
-    entry: dev ? {
-      LineUpJSx: './src/index.tsx',
-      builder2: './demo/builder2.tsx',
-      builder3: './demo/builder3.tsx',
-      highlight: './demo/highlight.tsx'
-    } : {
+    entry: {
       LineUpJSx: './src/index.tsx'
     },
     output: {
@@ -152,17 +147,17 @@ module.exports = (env, options) => {
     }
   };
 
-  if (dev) {
-    return config;
-  }
-
-  // create a bundled version, too
   const bundle = Object.assign({}, config);
-  bundle.entry = {
-    'LineUpJSx.bundle': './src/index.tsx'
-  }
   bundle.externals = Object.assign({}, config.externals);
   delete bundle.externals.lineupjs;
+
+  bundle.entry = dev ? {
+    builder2: './demo/builder2.tsx',
+    builder3: './demo/builder3.tsx',
+    highlight: './demo/highlight.tsx'
+  }: {
+    'LineUpJSx.bundle': './src/index.tsx'
+  };
 
   return [config, bundle];
 };
