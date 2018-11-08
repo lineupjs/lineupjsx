@@ -2,10 +2,11 @@
   "name": "lineupjsx",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/datavisyn/lineupjsx",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "author": {
     "name": "Samuel Gratzl",
-    "email": "samuel_gratzl@gmx.at"
+    "email": "sam@sgratzl.com",
+    "url": "https://www.sgratzl.com"
   },
   "license": "MIT",
   "bugs": {
@@ -15,10 +16,10 @@
     "type": "git",
     "url": "https://github.com/datavisyn/lineupjsx.git"
   },
-  "main": "build/LineUpJSx.js",
+  "main": "build/LineUpJSx.bundle.js",
   "jsnext:main": "build/LineUpJSx.js",
   "module": "build/LineUpJSx.js",
-  "unpkg": "build/LineUpJSx.js",
+  "unpkg": "build/LineUpJSx.bundle.js",
   "types": "src/index.d.ts",
   "sideEffects": [
     "*.scss",
@@ -59,39 +60,39 @@
     "release:pre": "npm version prerelease && npm publish --tag=next && git push --follow-tags"
   },
   "devDependencies": {
-    "cache-loader": "^1.2.2",
-    "css-loader": "^1.0.0",
-    "extract-loader": "^2.0.1",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^1.1.11",
-    "fork-ts-checker-webpack-plugin": "^0.4.4",
+    "cache-loader": "^1.2.5",
+    "css-loader": "^1.0.1",
+    "extract-loader": "^3.0.0",
+    "file-loader": "^2.0.0",
+    "fork-ts-checker-webpack-plugin": "^0.4.15",
     "json-loader": "^0.5.7",
+    "mini-css-extract-plugin": "^0.4.4",
     "mkdirp": "^0.5.1",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.10.0",
     "raw-loader": "^1.0.0-beta.0",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
-    "style-loader": "^0.21.0",
-    "stylelint": "^9.4.0",
+    "style-loader": "^0.23.1",
+    "stylelint": "^9.7.1",
     "stylelint-config-standard": "^18.2.0",
-    "stylelint-scss": "^3.2.0",
+    "stylelint-scss": "^3.4.0",
     "thread-loader": "^1.2.0",
-    "ts-loader": "^4.4.2",
+    "ts-loader": "^5.3.0",
     "tslint": "^5.11.0",
-    "tslint-consistent-codestyle": "^1.13.3",
-    "tslint-eslint-rules": "^5.3.1",
-    "typedoc": "^0.11.1",
+    "tslint-consistent-codestyle": "^1.14.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typedoc": "^0.13.0",
     "typescript": "^3.0.1",
-    "url-loader": "^1.0.1",
-    "webpack": "^4.16.4",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "url-loader": "^1.1.2",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
-    "@types/react": "^16.4.7",
-    "@types/react-dom": "^16.0.6",
-    "lineupjs": "^3.1.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "@types/react": "^16.4.18",
+    "@types/react-dom": "^16.0.9",
+    "lineupjs": "~3.1.7",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1"
   }
 }

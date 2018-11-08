@@ -1,7 +1,7 @@
 const resolve = require('path').resolve;
 const pkg = require('./package.json');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const now = new Date();
@@ -20,14 +20,9 @@ const banner = '/*! ' + (pkg.title || pkg.name) + ' - v' + pkg.version + ' - ' +
  */
 module.exports = (env, options) => {
   const dev = options.mode.startsWith('d');
-  return {
+  const config = {
     node: false, // no polyfills
-    entry: dev ? {
-      LineUpJSx: './src/index.tsx',
-      builder2: './demo/builder2.tsx',
-      builder3: './demo/builder3.tsx',
-      highlight: './demo/highlight.tsx'
-    } : {
+    entry: {
       LineUpJSx: './src/index.tsx'
     },
     output: {
@@ -54,8 +49,11 @@ module.exports = (env, options) => {
         __LICENSE__: JSON.stringify(pkg.license),
         __BUILD_ID__: JSON.stringify(buildId)
       }),
-      new ExtractTextPlugin({
-        filename: `[name].css`
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: '[name].css',
+        chunkFilename: '[id].css'
       }),
       new ForkTsCheckerWebpackPlugin({
         checkSyntacticErrors: true
@@ -73,15 +71,22 @@ module.exports = (env, options) => {
         root: 'ReactDOM',
         commonjs: 'react-dom',
         commonjs2: 'react-dom'
+      },
+      lineupjs: {
+        amd: 'lineupjs',
+        root: 'LineUpJS',
+        commonjs: 'lineupjs',
+        commonjs2: 'lineupjs'
       }
     },
     module: {
       rules: [{
           test: /\.s?css$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: ['css-loader', 'sass-loader']
-          })
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'sass-loader'
+          ]
         },
         {
           test: /\.tsx?$/,
@@ -141,4 +146,18 @@ module.exports = (env, options) => {
       contentBase: 'demo'
     }
   };
+
+  const bundle = Object.assign({}, config);
+  bundle.externals = Object.assign({}, config.externals);
+  delete bundle.externals.lineupjs;
+
+  bundle.entry = dev ? {
+    builder2: './demo/builder2.tsx',
+    builder3: './demo/builder3.tsx',
+    highlight: './demo/highlight.tsx'
+  }: {
+    'LineUpJSx.bundle': './src/index.tsx'
+  };
+
+  return [config, bundle];
 };
