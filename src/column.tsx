@@ -12,8 +12,8 @@ import {
   IDateColumnDesc,
   IHierarchyColumnDesc,
   INumberColumnDesc,
-  IStringColumnDesc,
-  IActionColumnDesc
+  IActionColumnDesc,
+  ILinkColumnDesc
 } from 'lineupjs';
 import * as React from 'react';
 
@@ -56,7 +56,7 @@ export class LineUpNumberColumnDesc extends LineUpColumnDesc<ILineUpNumberColumn
 }
 
 export class LineUpStringColumnDesc extends LineUpColumnDesc<ILineUpStringColumnDescProps> {
-  static build(props: ILineUpStringColumnDescProps): IStringColumnDesc {
+  static build(props: ILineUpStringColumnDescProps): ILinkColumnDesc {
     return builderAdapter.buildString(props);
   }
 }
