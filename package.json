@@ -1,7 +1,7 @@
 {
   "name": "lineupjsx",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
-  "homepage": "https://github.com/datavisyn/lineupjsx",
+  "homepage": "https://github.com/lineupjs/lineupjsx",
   "version": "1.0.7",
   "author": {
     "name": "Samuel Gratzl",
@@ -10,11 +10,11 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/datavisyn/lineupjsx/issues"
+    "url": "https://github.com/lineupjs/lineupjsx/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/datavisyn/lineupjsx.git"
+    "url": "https://github.com/lineupjs/lineupjsx.git"
   },
   "main": "build/LineUpJSx.bundle.js",
   "jsnext:main": "build/LineUpJSx.js",
