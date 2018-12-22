@@ -1,7 +1,7 @@
 LineUp.js React Wrapper (LineUp.jsx)
 ====================================
 
-[![License: MIT][mit-image]][mit-url] [![NPM version][npm-image]][npm-url]  [![CircleCI][ci-image]][ci-url] 
+[![License: MIT][mit-image]][mit-url] [![NPM version][npm-image]][npm-url] [![CircleCI][ci-image]][ci-url] [![CircleCI][ci-image-dev]][ci-url-dev] <sup>(dev)</sup>
 
 LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. 
 This is a [React](https://reactjs.org/) wrapper around the JavaScript library [LineUp.js](https://github.com/lineupjs/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org). 
@@ -118,6 +118,8 @@ Authors
 [mit-url]: https://opensource.org/licenses/MIT
 [ci-image]: https://circleci.com/gh/lineupjs/lineupjsx.svg?style=shield
 [ci-url]: https://circleci.com/gh/lineupjs/lineupjsx
+[ci-image-dev]: https://circleci.com/gh/lineupjs/lineupjsx/tree/develop.svg?style=shield
+[ci-url-dev]: https://circleci.com/gh/lineupjs/lineupjsx/tree/develop
 
 
  
