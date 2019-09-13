@@ -1,6 +1,10 @@
 {
-  "buildCommand": "npm run dist",
-  "src": {
+  "hooks": {
+    "before:init": "npm test",
+    "before:release": "npm run dist",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+  },
+  "git": {
     "tagName": "v%s"
   },
   "npm": {
