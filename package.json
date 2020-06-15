@@ -2,7 +2,7 @@
   "name": "lineupjsx",
   "description": "LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.",
   "homepage": "https://github.com/lineupjs/lineupjsx",
-  "version": "1.0.7",
+  "version": "4.0.0",
   "author": {
     "name": "Samuel Gratzl",
     "email": "sam@sgratzl.com",
@@ -78,7 +78,7 @@
     "jszip-cli": "^1.4.24",
     "mini-css-extract-plugin": "^0.8.0",
     "mkdirp": "^0.5.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.14.1",
     "raw-loader": "^3.1.0",
     "release-it": "^12.3.6",
     "rimraf": "^3.0.0",
@@ -92,18 +92,18 @@
     "tslint": "^5.20.0",
     "tslint-consistent-codestyle": "^1.15.1",
     "tslint-eslint-rules": "^5.4.0",
-    "typedoc": "^0.15.0",
+    "typedoc": "~0.15.0",
     "typedoc-plugin-as-member-of": "^1.0.2",
     "typescript": "^3.6.3",
     "url-loader": "^2.1.0",
     "webpack": "^4.40.0",
     "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
-    "lineupjs": "~3.1.7",
+    "lineupjs": "~4.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   }
