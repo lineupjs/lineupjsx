@@ -26,5 +26,12 @@
     "excludeNotExported": true,
     "listInvalidSymbolLinks": true,
     "plugin": ["typedoc-plugin-as-member-of"]
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "demo/**/*.ts",
+    "demo/**/*.tsx",
+    "tsd.d.ts"
+  ],
 }

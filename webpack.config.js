@@ -22,7 +22,7 @@ module.exports = (env, options) => {
   return {
     node: false, // no polyfills
     entry: dev ? {
-      LineUpJSx: './src/index.ts',
+      LineUpJSx: './src/bundle.ts',
       builder2: './demo/builder2.tsx',
       builder3: './demo/builder3.tsx',
       highlight: './demo/highlight.tsx'
@@ -103,7 +103,7 @@ module.exports = (env, options) => {
             {
               loader: 'ts-loader',
               options: {
-                configFile: dev ? 'tsconfig_dev.json' : 'tsconfig.json',
+                configFile: dev ? resolve(__dirname, 'tsconfig.dev.json') : resolve(__dirname, 'tsconfig.json'),
                 happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up  compilation and reduce errors reported to webpack
               }
             }
