@@ -10,7 +10,7 @@ This is a [React](https://reactjs.org/) wrapper around the JavaScript library [L
 **Installation**
 
 ```bash
-npm install --save lineupjsx
+npm install lineupjsx
 ```
 
 ```html
@@ -78,6 +78,7 @@ for (let i = 0; i < 100; ++i) {
 git clone https://github.com/lineupjs/lineupjsx.git
 cd lineupjsx
 npm i -g yarn
+yarn set version berry
 yarn set version latest
 cat .yarnrc_patch.yml >> .yarnrc.yml
 yarn install
