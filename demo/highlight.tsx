@@ -10,42 +10,45 @@ function data() {
       d: `Row ${i}`,
     });
   }
-    return arr;
- }
+  return arr;
+}
 
 const d = data();
 
 class Render extends React.Component<any, any> {
-  constructor(props: any, ctx: any) {
-    super(props, ctx);
+  constructor(props: any) {
+    super(props);
     this.state = {
       highlight: -1,
-      selection: []
+      selection: [],
     };
   }
 
   private readonly onHighlightChanged = (highlight: number) => {
     console.log(highlight);
-    this.setState({highlight});
+    this.setState({ highlight });
   };
 
   private readonly onSelect = (selection: number[]) => {
-    this.setState({selection});
-  }
+    this.setState({ selection });
+  };
 
   render() {
-    return <div>
-      <LineUpJS.LineUp data={d}
-              onSelectionChanged={this.onSelect}
-              onHighlightChanged={this.onHighlightChanged}
-              selection={this.state.selection}
-              highlight={this.state.highlight}
-              >
-                  <LineUpJS.LineUpStringColumnDesc column="d" label="Label" width={80} />
+    return (
+      <div>
+        <LineUpJS.LineUp
+          data={d}
+          onSelectionChanged={this.onSelect}
+          onHighlightChanged={this.onHighlightChanged}
+          selection={this.state.selection}
+          highlight={this.state.highlight}
+        >
+          <LineUpJS.LineUpStringColumnDesc column="d" label="Label" width={80} />
           <LineUpJS.LineUpNumberColumnDesc column="a" label="other label" width={160} />
         </LineUpJS.LineUp>
-      <button onClick={() => this.setState({highlight: this.state.highlight + 10})}>Highlight</button>
-      </div>;
+        <button onClick={() => this.setState({ highlight: this.state.highlight + 10 })}>Highlight</button>
+      </div>
+    );
   }
 }
 

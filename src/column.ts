@@ -13,7 +13,7 @@ import {
   IHierarchyColumnDesc,
   INumberColumnDesc,
   IActionColumnDesc,
-  ILinkColumnDesc
+  ILinkColumnDesc,
 } from 'lineupjs';
 import * as React from 'react';
 
@@ -25,7 +25,10 @@ export declare type ILineUpHierarchyColumnDescProps = IBuilderAdapterHierarchyCo
 export declare type ILineUpStringColumnDescProps = IBuilderAdapterStringColumnDescProps;
 export declare type ILineUpActionsColumnDescProps = IBuilderAdapterActionsColumnDescProps;
 
-export class LineUpColumnDesc<P extends ILineUpColumnDescProps = ILineUpColumnDescProps> extends React.PureComponent<Readonly<P>, {}> {
+export class LineUpColumnDesc<P extends ILineUpColumnDescProps = ILineUpColumnDescProps> extends React.PureComponent<
+  Readonly<P>,
+  unknown
+> {
   static build<P extends ILineUpColumnDescProps>(props: P, _data: any[]): IColumnDesc {
     return builderAdapter.build(props);
   }
