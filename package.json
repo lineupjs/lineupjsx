@@ -21,6 +21,7 @@
   "unpkg": "build/LineUpJSx.js",
   "module": "build/src/index.js",
   "types": "build/src/index.d.ts",
+  "styles": "build/LineUpJSx.css",
   "exports": "./build/src/index.js",
   "sideEffects": [
     "*.scss",
