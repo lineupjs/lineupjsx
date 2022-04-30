@@ -78,7 +78,7 @@
     "jszip-cli": "^1.4.24",
     "mini-css-extract-plugin": "^0.8.0",
     "mkdirp": "^0.5.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "raw-loader": "^3.1.0",
     "release-it": "^12.3.6",
     "rimraf": "^3.0.0",
