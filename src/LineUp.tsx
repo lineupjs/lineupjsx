@@ -14,7 +14,7 @@ import { filterChildrenProps } from './utils';
 
 export declare type ILineUpProps = IBuilderAdapterProps & { style?: React.CSSProperties; className?: string };
 
-export class LineUp extends React.PureComponent<Readonly<ILineUpProps>> {
+export class LineUp extends React.PureComponent<React.PropsWithChildren<Readonly<ILineUpProps>>> {
   private node: HTMLElement | null = null;
 
   private readonly adapter = new builderAdapter.Adapter({

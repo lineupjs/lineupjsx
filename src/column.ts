@@ -7,6 +7,7 @@ import {
   IBuilderAdapterNumberColumnDescProps,
   IBuilderAdapterStringColumnDescProps,
   IBuilderAdapterActionsColumnDescProps,
+  IBuilderAdapterBooleanColumnDescProps,
   ICategoricalColumnDesc,
   IColumnDesc,
   IDateColumnDesc,
@@ -14,11 +15,13 @@ import {
   INumberColumnDesc,
   IActionColumnDesc,
   ILinkColumnDesc,
+  IBooleanColumnDesc,
 } from 'lineupjs';
 import * as React from 'react';
 
 export declare type ILineUpColumnDescProps = IBuilderAdapterColumnDescProps;
 export declare type ILineUpCategoricalColumnDescProps = IBuilderAdapterCategoricalColumnDescProps;
+export declare type ILineUpBooleanColumnDescProps = IBuilderAdapterBooleanColumnDescProps;
 export declare type ILineUpDateColumnDescProps = IBuilderAdapterDateColumnDescProps;
 export declare type ILineUpNumberColumnDescProps = IBuilderAdapterNumberColumnDescProps;
 export declare type ILineUpHierarchyColumnDescProps = IBuilderAdapterHierarchyColumnDescProps;
@@ -37,6 +40,12 @@ export class LineUpColumnDesc<P extends ILineUpColumnDescProps = ILineUpColumnDe
 export class LineUpCategoricalColumnDesc extends LineUpColumnDesc<ILineUpCategoricalColumnDescProps> {
   static build(props: ILineUpCategoricalColumnDescProps, data: any[]): ICategoricalColumnDesc {
     return builderAdapter.buildCategorical(props, data);
+  }
+}
+
+export class LineUpBooleanColumnDesc extends LineUpColumnDesc<ILineUpBooleanColumnDescProps> {
+  static build(props: ILineUpBooleanColumnDescProps, _data: any[]): IBooleanColumnDesc {
+    return builderAdapter.buildBoolean(props);
   }
 }
 

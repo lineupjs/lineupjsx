@@ -6,26 +6,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: 16
       - run: npm i -g yarn
-      - run: yarn set version berry
-      # - run: cat .yarnrc_patch.yml >> .yarnrc.yml
       - run: yarn config set checksumBehavior ignore
       - name: Cache Node.js modules
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v3
         with:
           path: |
-            ./.yarn
-          key: ${{ runner.os }}-yarn2-${{ hashFiles('**/yarn.lock') }}
+            ./.yarn/cache
+            ./.yarn/unplugged
+          key: ${{ runner.os }}-yarn2-v2-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn2
+            ${{ runner.os }}-yarn2-v2
       - run: yarn install
       - run: yarn clean
       - run: yarn compile
       - run: yarn build
       - run: yarn lint
-      - run: yarn test:coverage
       - run: yarn docs
