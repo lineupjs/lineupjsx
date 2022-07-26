@@ -44,7 +44,7 @@ export class LineUpCategoricalColumnDesc extends LineUpColumnDesc<ILineUpCategor
 }
 
 export class LineUpBooleanColumnDesc extends LineUpColumnDesc<ILineUpBooleanColumnDescProps> {
-  static build(props: ILineUpBooleanColumnDescProps, data: any[]): IBooleanColumnDesc {
+  static build(props: ILineUpBooleanColumnDescProps, _data: any[]): IBooleanColumnDesc {
     return builderAdapter.buildBoolean(props);
   }
 }

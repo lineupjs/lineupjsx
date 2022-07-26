@@ -20,13 +20,13 @@ import { filterChildrenProps } from './utils';
 
 export declare type ILineUpRankingProps = IBuilderAdapterRankingProps;
 
-export abstract class ALineUpColumnBuilder<T> extends React.PureComponent<Readonly<T>> {}
+export abstract class ALineUpColumnBuilder<T> extends React.PureComponent<React.PropsWithChildren<Readonly<T>>> {}
 
 export interface IReactChildren {
   children: React.ReactNode;
 }
 
-export default class LineUpRanking extends React.PureComponent<Readonly<ILineUpRankingProps>> {
+export default class LineUpRanking extends React.PureComponent<React.PropsWithChildren<Readonly<ILineUpRankingProps>>> {
   static merge(props: ILineUpRankingProps & IReactChildren): ILineUpRankingProps {
     const inline: (
       | string
