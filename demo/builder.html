@@ -1,42 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title>LineUp Builder Test</title>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title>LineUp Builder Test</title>
 
-  <link href="./LineUpJSx.css" rel="stylesheet">
-  <link href="./demo.css" rel="stylesheet">
-</head>
-<body>
-  <div></div>
+    <link href="./LineUpJSx.css" rel="stylesheet" />
+    <link href="./demo.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="./LineUpJSx.js"></script>
 
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js"></script>
-<script src="./LineUpJSx.js"></script>
+    <script>
+      window.onload = function () {
+        const arr = [];
+        const cats = ['c1', 'c2', 'c3'];
+        for (let i = 0; i < 100; ++i) {
+          arr.push({
+            a: Math.random() * 10,
+            d: 'Row ' + i,
+            cat: cats[Math.floor(Math.random() * 3)],
+            cat2: cats[Math.floor(Math.random() * 3)],
+          });
+        }
 
-<script>
-  window.onload = function () {
-    const arr = [];
-    const cats = ['c1', 'c2', 'c3'];
-    for (let i = 0; i < 100; ++i) {
-      arr.push({
-        a: Math.random() * 10,
-        d: 'Row ' + i,
-        cat: cats[Math.floor(Math.random() * 3)],
-        cat2: cats[Math.floor(Math.random() * 3)]
-      })
-    }
-
-
-    ReactDOM.render(
-      React.createElement(LineUpJS.LineUp, {
-        data: arr,
-        style: { height: '500px' }
-      }),
-      document.querySelector('div')
-    );
-  };
-</script>
-
-</body>
+        ReactDOM.render(
+          React.createElement(LineUpJS.LineUp, {
+            data: arr,
+            style: { height: '500px' },
+          }),
+          document.querySelector('div')
+        );
+      };
+    </script>
+  </body>
 </html>

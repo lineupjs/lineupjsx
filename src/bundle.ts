@@ -2,7 +2,7 @@ import 'lineupjs/build/LineUpJS.css';
 import './style.scss';
 
 export * from './';
-export {default} from './';
+export { default } from './';
 
 declare const __VERSION__: string;
 declare const __BUILD_ID__: string;

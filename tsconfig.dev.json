@@ -1,37 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es6",
-    "outDir": "build/src"
+    "target": "es6"
   },
   "typedocOptions": {
     "name": "LineUpJSx",
-    "mode": "modules",
-    "modules": "umd",
-    "target": "es6",
-    "hideGenerator": true,
-    "ignoreCompilerErrors": false,
-    "includeDeclarations": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "moduleResolution": "node",
-    "preserveConstEnums": true,
-    "stripInternal": true,
-    "suppressExcessPropertyErrors": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "exclude": "**/*.(d.ts|js|spec.ts|scss)",
-    "excludePrivate": true,
-    "excludeProtected": true,
+    "out": "./docs",
+    "theme": "default",
     "excludeExternals": true,
-    "excludeNotExported": true,
-    "listInvalidSymbolLinks": true,
-    "plugin": ["typedoc-plugin-as-member-of"]
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "demo/**/*.ts",
-    "demo/**/*.tsx",
-    "tsd.d.ts"
-  ],
+    "excludePrivate": true,
+    "includeVersion": true,
+    "hideGenerator": true,
+    "exclude": "**/*.(d.ts|js|spec.ts|scss)"
+  }
 }
